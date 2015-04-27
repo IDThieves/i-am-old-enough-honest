@@ -40,7 +40,9 @@ server.register([Bell, Cookie], function (err) {
 		clientSecret: config.facebook.cSecret
 	});
 
-
+	console.log( 'Secret: ' + config.facebook.secret);
+	console.log( 'CID: ' + config.facebook.cKey);
+	console.log( 'CSecret: ' + config.facebook.cSecret);
 	// server.views({
 	// 	engines: {
 	// 		jade: require("jade")
