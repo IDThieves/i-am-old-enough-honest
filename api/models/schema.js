@@ -1,9 +1,8 @@
-<<<<<<< HEAD
 var mongoose 	= require('mongoose');
 var Schema 		= mongoose.Schema;
 
 
-var userSchema = new Schema({
+var memberSchema = new Schema({
 	username: 	{type: String, required: true},
 	email: 		{type: String, required: true},
 	firstName: 	{type: String, required: true},
@@ -13,23 +12,8 @@ var userSchema = new Schema({
 });
 
 
-var User = mongoose.model('user', userSchema);
+var Member = mongoose.model('member', memberSchema);
 
 module.exports = {
-	User: User
+	Member: Member
 };
-=======
-var mongoose = require("mongoose");
-var Schema 	 = mongoose.Schema;
-
-var memberSchema = new Schema({
-	username   : {type: String, required: true},
-	email      : {type: String, required: true},
-});
-
-var Member 	= mongoose.model("Member", memberSchema);
-
-module.exports = {
-	Member 		: Member
-};
->>>>>>> master
