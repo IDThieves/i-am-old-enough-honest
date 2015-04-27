@@ -1,7 +1,6 @@
 var Bell 	= require('bell');
 var Path 	= require('path');
 // var Joi 	= require('joi');
-var opentok = require('./opentok');
 var members = require('./models/members.js');
 
 
