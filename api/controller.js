@@ -41,7 +41,7 @@ module.exports = {
 				};
 				console.log('Profile:');
 				console.dir(profile);
-				return reply( JSON.stringigy( profile ) );
+				return reply( JSON.stringify( profile ) );
 			}
 			else {
 				return reply.redirect('/loggedout');
