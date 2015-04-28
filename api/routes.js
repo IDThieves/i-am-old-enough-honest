@@ -1,7 +1,7 @@
 var controller = require('./controller.js');
 
 module.exports = [
-	{path: "/{file*}",					method: "GET",		config: controller.serveFile},
+//	{path: "/{file*}",					method: "GET",		config: controller.serveFile},
 
 	{path: '/', 						method: 'GET', 		config: controller.homeView},
 	{path: '/login/facebook', 			method: 'GET', 		config: controller.loginFacebook},

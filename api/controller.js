@@ -2,8 +2,7 @@ var Bell 	= require('bell');
 var Path 	= require('path');
 // var Joi 	= require('joi');
 var members = require('./models/members.js');
-
-
+var index = Path.resolve(__dirname + '/../public/index.html');
 var config 	= require('./config');
 
 /////////////
@@ -16,14 +15,14 @@ var config 	= require('./config');
 
 module.exports = {
 
-	serveFile: {
-		auth: false,
-		handler: {
-			directory: {
-				path: '../public'
-			}
-		}
-	},
+//	serveFile: {
+//		auth: false,
+//		handler: {
+//			directory: {
+//				path: '../public'
+//			}
+//		}
+//	},
 
 	loginFacebook: {
 		 auth: {
@@ -41,7 +40,8 @@ module.exports = {
 				};
 				console.log('Profile:');
 				console.dir(profile);
-				return reply( JSON.stringify( profile ) );
+                return reply.file(index);
+//				return reply( JSON.stringify( profile ) );
 			}
 			else {
 				return reply.redirect('/loggedout');
