@@ -6,6 +6,7 @@ module.exports = {
         
         //user
 		NAVIGATE_TO: null,
+        UPLOAD_IMAGE: null,
         
         //Server
         RECEIVE_MEMBER: null
