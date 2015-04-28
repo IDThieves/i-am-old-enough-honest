@@ -7,6 +7,7 @@ var CHANGE_EVENT = "change";
 
 var _route = "Home";
 var _member = "null";
+var data = [];
 
 var AppStore = assign({}, EventEmitter.prototype, {
     
@@ -45,6 +46,11 @@ AppDispatcher.register(function(action){
     switch (action.type) {
         case ActionTypes.NAVIGATE_TO:
             _route = action.route;
+            AppStore.emitChange();
+            break;
+        
+        case ActionTypes.UPLOAD_IMAGE:
+            data = action.data;
             AppStore.emitChange();
             break;
 
