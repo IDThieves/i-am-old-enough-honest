@@ -5,7 +5,7 @@ var Constants       = require('../constants/Constants');
 var ActionTypes     = Constants.ActionTypes;
 var CHANGE_EVENT = "change";
 
-var _route = "IdPage";
+var _route = "Home";
 var _member = "null";
 
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -27,7 +27,11 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	
 	getMember: function() {
 		return _member;
-	}
+	},
+    
+    getRoute: function() {
+        return _route;
+    }
     
 });
 
