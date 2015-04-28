@@ -5,7 +5,7 @@ var Profile = React.creatClass({
 	render: function() {
 		return (
 			<div>
-                <p>hi</p>
+                <img />
 			</div>
 		);
 	}
