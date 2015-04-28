@@ -2,9 +2,8 @@ var Hapi 	= require('hapi');
 var Bell 	= require('bell');
 var Cookie 	= require('hapi-auth-cookie');
 var Path 	= require('path');
-//var routes 	= require('./routes');
+var routes 	= require('./routes');
 var config 	= require('./config');
-var index = Path.resolve(__dirname + '/../public/index.html');
 
 var host = 'localhost';
 if (process.env.PORT) host = '0.0.0.0';
@@ -28,8 +27,8 @@ server.register([Bell, Cookie], function (err) {
 	server.auth.strategy('session', 'cookie',{
 		password: config.cookie.password,
 		cookie: 'sid',
-		redirectTo: '/',
-//		redirectOnTry: false,
+		redirectTo: '/loggedout',
+		redirectOnTry: false,
 		isSecure: false
 	});
 
@@ -46,45 +45,9 @@ server.register([Bell, Cookie], function (err) {
 	console.log( 'CSecret: ' + config.facebook.cSecret);
     
 
-//	server.auth.default('session');
-//	server.route(routes);
-    server.route([{
-        method: 'GET',
-        path: '/',
-        config: {
-            auth: {
-                strategy: 'session',
-                mode: 'try'
-            },
-            handler: function(request, reply) {
-                console.log("isAuthenticated:", request.auth.isAuthenticated);
-                if (request.auth.isAuthenticated) {
-    //                var fb = request.auth.credentials;
-                } else {
-                    reply.file(index);
-                }
-            }
-        }
-    }, {
-        method: ['GET', 'POST'],
-        path: '/facebook',
-        config: {
-            auth: 'facebook',
-            handler: function(request, reply) {
-                var fb = request.auth.credentials.profile;
-                
-                var profile = {
-                    email : fb.email,
-                };
-                request.auth.session.clear();
-            	request.auth.session.set(profile);
-				reply.redirect('/');
-            }
-
-        }
-    }   
-    
-    ]);
+	server.auth.default('session');
+	server.route(routes);
+   
 });
 
 
