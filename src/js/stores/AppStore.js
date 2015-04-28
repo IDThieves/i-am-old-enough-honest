@@ -5,12 +5,10 @@ var Constants       = require('../constants/Constants');
 var ActionTypes     = Constants.ActionTypes;
 var CHANGE_EVENT = "change";
 
-//these represent their non-underscore counterpart, when they are in a 'changed' state
 var _route = "IdPage";
+var _member = "null";
 
 var AppStore = assign({}, EventEmitter.prototype, {
-    
-
     
     emitChange: function() {
         this.emit(CHANGE_EVENT);
@@ -25,7 +23,11 @@ var AppStore = assign({}, EventEmitter.prototype, {
     // removing the eventlistener when were leaving the page (cleaning up after us.)
     removeChangeListener: function(callback){
         this.removeListener(CHANGE_EVENT, callback);
-    }
+    },
+	
+	getMember: function() {
+		return _member;
+	}
     
 });
 

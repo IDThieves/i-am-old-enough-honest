@@ -4,7 +4,8 @@ module.exports = {
     
     ActionTypes: keyMirror({
         
-        NAVIGATE_TO: null,
+        //user
+		NAVIGATE_TO: null,
         
         //Server
         RECEIVE_MEMBER: null
