@@ -2,7 +2,6 @@ var Bell 	= require('bell');
 var Path 	= require('path');
 // var Joi 	= require('joi');
 var members = require('./models/members.js');
-var index = Path.resolve(__dirname + '/../public/index.html');
 var config 	= require('./config');
 
 /////////////
@@ -68,7 +67,7 @@ module.exports = {
 	homeView: {
 		handler: function (request, reply ){
 			if (request.auth.isAuthenticated) {
-				return reply.file(index);
+				return reply.view('index', {members: members});
 			}
 			else {
 				console.log( 'You are not authorised');

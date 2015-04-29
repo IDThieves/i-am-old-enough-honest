@@ -1,12 +1,3 @@
-extends ./layouts/default.jade
-include ./mixins.jade
+extend ./layouts/default.jade
 
-block content
-	.row
-		.col-md-12
-			h1.centeredTitle Designs Gallery
-
-	if designs
-		+homepageGallery(designs)
-
-
+append content
