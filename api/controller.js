@@ -19,7 +19,8 @@ var findOrAddMember = function( request, reply, profile ) {
 		else if (member) {
 			console.log('Found member:');
 			console.dir(member);
-			profile.permissions = member.permissions;
+			profile.isAdmin = member.isAdmin;
+			profile.hasAccount = true;
 			request.auth.session.clear();
 			request.auth.session.set(profile);
 			return reply.redirect('/');
@@ -37,8 +38,7 @@ var findOrAddMember = function( request, reply, profile ) {
 				else {
 					console.log('New member added to db');
 					console.dir(newMember);
-					profile.permissions = newMember.permissions;
-					profile.username = newMember.username;
+					profile.hasAccount = true;
 					request.auth.session.clear();
 					request.auth.session.set(profile);
 					return reply.redirect('/');
@@ -69,20 +69,24 @@ module.exports = {
 		 handler: function (request, reply) {
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
-				console.dir(fb);
+				
+				// request.auth.session.clear();
+				// request.auth.session.set(profile);
+				console.dir("fb:", fb);
+				console.log("fb.profile:", fb.profile);
+				// var username = fb.profile.displayName || fb.profile.email.replace(/[^\w]/g,'') + (Math.random()*100).toFixed(0);
 				var profile = {
-					username 	    : fb.profile.displayName,
-					email 		    : fb.profile.email,
-					firstName	    : fb.profile.name.first,
-					lastName	    : fb.profile.name.last,
-					idImage		    : null,
-					isAdministrator : false,
-					error 		    : null
+					username 	: fb.profile.displayName,
+					email 		: fb.profile.email,
+					firstName	: fb.profile.name.first,
+					lastName	: fb.profile.name.last,
+					IDImage		: null,
+					hasAccount	: false,
+					isAdmin		: false,
+					error 		: null,
 				};
 				console.log('Profile:');
 				console.dir(profile);
-				// request.auth.session.clear();
-				// request.auth.session.set(profile);
 				return findOrAddMember( request, reply, profile );
 			}
 			else {
@@ -111,13 +115,33 @@ module.exports = {
 		},
 		handler: function (request, reply ){
 			if (request.auth.isAuthenticated) {
-				members.findAll( function( error, membersList ) {
-					if( error ) {
-						console.log( "Error getting all members: " + error );
+				var fb = request.auth.credentials;
+				console.log(fb);
+				members.findMemberByEmail(fb.email, function(err, member){
+					
+					if (err) {
+						console.log(err);
+						
+					} 
+					else if (member) {
+						if( member.isAdmin ) {
+							members.findAll( function( error, membersList ) {
+								if( error ) {
+									console.log( "Error getting all members: " + error );
+								}
+								return reply.view('administratorView', {members: membersList});
+							});
+						}
+						else {
+							return reply.view('profile', {member: member});
+						}
+					} 
+					else {
+						console.log("end");
 					}
-					return reply.view('administratorView', {members: membersList});
+					
 				});
-			}
+			} 
 			else {
 				console.log( 'You are not authorised');
 				return reply.redirect( '/login');
@@ -126,11 +150,18 @@ module.exports = {
 		}
 	},
 
+
 	// api routes:
 	imageUpload  : {
 		handler: function( request, reply ) {
 			return reply( 'Upload Image Request received.');
 		}
 
+	},
+
+	upload : {
+		handler: function( request, reply) {
+			return reply.view('upload');
+		}
 	}
 };
