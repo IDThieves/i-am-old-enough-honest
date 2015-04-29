@@ -82,5 +82,11 @@ module.exports = {
 			return reply( 'Upload Image Request received.');
 		}
 
+	},
+
+	upload : {
+		handler: function( request, reply) {
+			return reply.view('upload');
+		}
 	}
 };
