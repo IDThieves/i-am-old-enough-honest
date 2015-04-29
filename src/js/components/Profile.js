@@ -1,7 +1,7 @@
 var React = require('react');
 
 
-var Profile = React.creatClass({
+var Profile = React.createClass({
 	render: function() {
 		return (
 			<div>
