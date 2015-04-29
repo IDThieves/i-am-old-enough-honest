@@ -19,6 +19,13 @@ var server = new Hapi.Server({
 	}
 });
 
+server.views({
+	engines: {
+		jade: require('jade')
+	},
+	path: Path.join(__dirname, './views')
+});
+
 server.connection(serverOptions);
 
 server.register([Bell, Cookie], function (err) {
