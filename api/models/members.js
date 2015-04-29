@@ -21,6 +21,16 @@ exports.search = function(params, callback) {
 	}
 };
 
+exports.findAll = function( callback ) {
+	Member.find(function( err, result ) {
+		if( err ) {
+			callback( err );
+		}
+		else {
+			return callback(null, result);
+		}
+	});
+};
 // NB if no member found, returns result of null, not error
 exports.findMemberByEmail = function(email, callback) {
 	Member.findOne({email: email}, function(err, result){

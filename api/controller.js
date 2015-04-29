@@ -7,7 +7,46 @@ var config 	= require('./config');
 /////////////
 // Helpers //
 /////////////
-
+var findOrAddMember = function( request, reply, profile ) {
+	// look up in database and if not found, then add to the database as a publisher
+	members.findMemberByEmail( profile.email, function( err1, member ){
+		console.log('Looking up member');
+		if(err1) {
+			console.error(err1);
+			request.auth.session.clear();
+			return reply.redirect( '/loggedout' );
+		}
+		else if (member) {
+			console.log('Found member:');
+			console.dir(member);
+			profile.permissions = member.permissions;
+			request.auth.session.clear();
+			request.auth.session.set(profile);
+			return reply.redirect('/');
+		}
+		else {
+			console.log('Member not found, adding new Member');
+		
+			members.addMember(newMember, function(err3, newMember){
+				if (err3) {
+					console.error(err3);
+					console.error('Failed to add new member');
+					request.auth.session.clear();
+					return reply.redirect( '/loggedout' );
+				}
+				else {
+					console.log('New member added to db');
+					console.dir(newMember);
+					profile.permissions = newMember.permissions;
+					profile.username = newMember.username;
+					request.auth.session.clear();
+					request.auth.session.set(profile);
+					return reply.redirect('/');
+				}
+			});
+		}
+	});
+};
 /////////////
 // Handlers//
 /////////////
@@ -31,18 +70,20 @@ module.exports = {
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
 				console.dir(fb);
-				var username = fb.profile.displayName || fb.profile.email.replace(/[^\w]/g,'') + (Math.random()*100).toFixed(0);
 				var profile = {
-					username 	: username,
-					email 		: fb.profile.email,
-					error 		: null
+					username 	    : fb.profile.displayName,
+					email 		    : fb.profile.email,
+					firstName	    : fb.profile.name.first,
+					lastName	    : fb.profile.name.last,
+					idImage		    : null,
+					isAdministrator : false,
+					error 		    : null
 				};
 				console.log('Profile:');
 				console.dir(profile);
-				request.auth.session.clear();
-				request.auth.session.set(profile);
-                return reply.redirect("/");
-//				return reply( JSON.stringify( profile ) );
+				// request.auth.session.clear();
+				// request.auth.session.set(profile);
+				return findOrAddMember( request, reply, profile );
 			}
 			else {
 				return reply.redirect('/loggedout');
@@ -65,13 +106,22 @@ module.exports = {
 	},
 
 	homeView: {
+		auth: {
+			mode: 'try'
+		},
 		handler: function (request, reply ){
 			if (request.auth.isAuthenticated) {
-				return reply.view('index', {members: members});
+				members.findAll( function( error, membersList ) {
+					if( error ) {
+						console.log( "Error getting all members: " + error );
+					}
+					return reply.view('administratorView', {members: membersList});
+				});
 			}
 			else {
 				console.log( 'You are not authorised');
-				return reply('You are not an authorised user.');
+				return reply.redirect( '/login');
+				//return reply('You are not an authorised user.');
 			}
 		}
 	},
