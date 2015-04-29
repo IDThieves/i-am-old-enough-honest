@@ -19,6 +19,13 @@ var server = new Hapi.Server({
 	}
 });
 
+server.views({
+	engines: {
+		jade: require('jade')
+	},
+	path: Path.join(__dirname, './views')
+});
+
 server.connection(serverOptions);
 
 server.register([Bell, Cookie], function (err) {
@@ -43,21 +50,14 @@ server.register([Bell, Cookie], function (err) {
 	console.log( 'Secret: ' + config.facebook.secret);
 	console.log( 'CID: ' + config.facebook.cKey);
 	console.log( 'CSecret: ' + config.facebook.cSecret);
-	// server.views({
-	// 	engines: {
-	// 		jade: require("jade")
-	// 	},
-	// 	compileOptions: {
-	// 		pretty: true
-	// 	},
-	// 	relativeTo: __dirname,
-	// 	path: 	'./views',
-	// 	isCached: false
-	// });
+    
 
 	server.auth.default('session');
 	server.route(routes);
+   
 });
+
+
 
 // GOOD error reporting
 var goodOptions = {

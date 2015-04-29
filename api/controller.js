@@ -2,8 +2,6 @@ var Bell 	= require('bell');
 var Path 	= require('path');
 // var Joi 	= require('joi');
 var members = require('./models/members.js');
-
-
 var config 	= require('./config');
 
 /////////////
@@ -41,7 +39,10 @@ module.exports = {
 				};
 				console.log('Profile:');
 				console.dir(profile);
-				return reply( JSON.stringify( profile ) );
+				request.auth.session.clear();
+				request.auth.session.set(profile);
+                return reply.redirect("/");
+//				return reply( JSON.stringify( profile ) );
 			}
 			else {
 				return reply.redirect('/loggedout');
@@ -66,7 +67,7 @@ module.exports = {
 	homeView: {
 		handler: function (request, reply ){
 			if (request.auth.isAuthenticated) {
-				return reply( 'Upload or View your Id.' );
+				return reply.view('index', {members: members});
 			}
 			else {
 				console.log( 'You are not authorised');
