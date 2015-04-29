@@ -29,6 +29,7 @@ var KiwiApp = React.createClass({
     },
     
     render: function() {
+        
         return (
             <Profile />
         );
