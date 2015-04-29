@@ -1,7 +1,7 @@
 var mongoose 	= require('mongoose');
-var crate 		= require('mongoose-crate');
-var S3 			= require('mongoose-crate-s3');
-var ImageMagick = require('mongoose-crate-imagemagick');
+//var crate 		= require('mongoose-crate');
+//var S3 			= require('mongoose-crate-s3');
+//var ImageMagick = require('mongoose-crate-imagemagick');
 
 var Schema 		= mongoose.Schema;
 var ObjectId 	= mongoose.Schema.Types.ObjectId;
