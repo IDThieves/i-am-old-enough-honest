@@ -1,7 +1,7 @@
 var React = require('react');
 
 
-var Upload = React.creatClass({
+var Upload = React.createClass({
     
     _onClick: function() {
       
@@ -14,7 +14,7 @@ var Upload = React.creatClass({
 			<div>
                 <input type="file" accept="image/*" caption="camera" ref="image" />
                 <img />
-                <input type="submit" value="Submit ID" onClick={this._onClick}
+                <input type="submit" value="Submit ID" onClick={this._onClick} />
 			</div>
 		);
 	}

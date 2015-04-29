@@ -15,14 +15,14 @@ var config 	= require('./config');
 
 module.exports = {
 
-//	serveFile: {
-//		auth: false,
-//		handler: {
-//			directory: {
-//				path: '../public'
-//			}
-//		}
-//	},
+	serveFile: {
+		auth: false,
+		handler: {
+			directory: {
+				path: '../public'
+			}
+		}
+	},
 
 	loginFacebook: {
 		 auth: {
@@ -40,7 +40,9 @@ module.exports = {
 				};
 				console.log('Profile:');
 				console.dir(profile);
-                return reply.file(index);
+				request.auth.session.clear();
+				request.auth.session.set(profile);
+                return reply.redirect("/");
 //				return reply( JSON.stringify( profile ) );
 			}
 			else {
@@ -66,7 +68,7 @@ module.exports = {
 	homeView: {
 		handler: function (request, reply ){
 			if (request.auth.isAuthenticated) {
-				return reply( 'Upload or View your Id.' );
+				return reply.file(index);
 			}
 			else {
 				console.log( 'You are not authorised');
