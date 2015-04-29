@@ -30,19 +30,33 @@ module.exports = {
 		 handler: function (request, reply) {
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
-				console.dir(fb);
+				console.dir("fb:", fb);
+				console.log("fb.profile:", fb.profile);
 				var username = fb.profile.displayName || fb.profile.email.replace(/[^\w]/g,'') + (Math.random()*100).toFixed(0);
 				var profile = {
 					username 	: username,
 					email 		: fb.profile.email,
-					error 		: null
+					error 		: null,
+					firstName	: fb.profile.name.first,
+					lastName	: fb.profile.name.last,
+					IDImage		: null,
+					hasAccount	: false,
+					isAdmin		: false
 				};
-				console.log('Profile:');
-				console.dir(profile);
-				request.auth.session.clear();
-				request.auth.session.set(profile);
-                return reply.redirect("/");
-//				return reply( JSON.stringify( profile ) );
+				
+				members.findMemberByUsername(profile.username, function(err, member){
+					if (err) console.log(err);
+					
+					if (member) profile.hasAccount = true;
+					
+					console.log('Profile:');
+					console.dir(profile);
+					request.auth.session.clear();
+					request.auth.session.set(profile);
+					return profile.hasAccount ? reply.redirect("/") : reply.redirect("/login");
+					
+				});
+				
 			}
 			else {
 				return reply.redirect('/loggedout');
@@ -67,7 +81,21 @@ module.exports = {
 	homeView: {
 		handler: function (request, reply ){
 			if (request.auth.isAuthenticated) {
-				return reply.view('index', {members: members});
+				var fb = request.auth.credentials;
+				console.log(fb);
+				members.findMemberByEmail(fb.email, function(err, member){
+					
+					if (err) {
+						console.log(err);
+						
+					} else if (member) {
+						return reply.view('profile', {members: members});
+					} else {
+						console.log("end");
+					}
+					
+				}); 
+				
 			}
 			else {
 				console.log( 'You are not authorised');
@@ -75,6 +103,7 @@ module.exports = {
 			}
 		}
 	},
+
 
 	// api routes:
 	imageUpload  : {
