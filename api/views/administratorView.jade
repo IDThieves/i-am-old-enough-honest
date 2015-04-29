@@ -2,13 +2,12 @@ extends ./layouts/default.jade
 
 //- NB- The full stop on line 6 is VERY IMPORTANT
 append head
-	link(href='/css/main.css', rel='stylesheet' type='text/css')
+	link(href='/assets/css/main.css', rel='stylesheet' type='text/css')
 	script(type='text/javascript').
 		//- var permissions = '#{permissions}'
 		//- var role = '#{role}'
 		//- var username = '#{username}'
-	//- script(src='/scripts/admin.js')
-	//- script(src='/scripts/mummies.js')
+	script(src='/scripts/admin.js')
 
 permTypes = ["user", "administrator"];
 
@@ -35,7 +34,10 @@ block content
 									td(class=member.id + " permissions")
 										.form-group
 											select.form-control.selectpermissions
-												option(selected="selected") #{member.permissions}
+												if member.isAdmin
+													option(selected="selected") administrator
+												else 
+													option(selected="selected") user
 												//- each perm in permTypes
 												option user
 												option administrator

@@ -27,8 +27,9 @@ var findOrAddMember = function( request, reply, profile ) {
 		}
 		else {
 			console.log('Member not found, adding new Member');
-		
-			members.addMember(newMember, function(err3, newMember){
+			console.dir( profile );
+			delete profile.error;
+			members.addMember(profile, function(err3, newMember){
 				if (err3) {
 					console.error(err3);
 					console.error('Failed to add new member');
@@ -80,6 +81,7 @@ module.exports = {
 					email 		: fb.profile.email,
 					firstName	: fb.profile.name.first,
 					lastName	: fb.profile.name.last,
+					isApproved  : false,
 					IDImage		: null,
 					hasAccount	: false,
 					isAdmin		: false,
@@ -152,6 +154,7 @@ module.exports = {
 
 
 	// api routes:
+	// api routes:
 	imageUpload  : {
 		handler: function( request, reply ) {
 			return reply( 'Upload Image Request received.');
@@ -162,6 +165,34 @@ module.exports = {
 	upload : {
 		handler: function( request, reply) {
 			return reply.view('upload');
+		}
+	},
+
+	memberUpdate  : {
+		handler : function( request, reply ) {
+			// var alert;
+			var data = request.payload.data;
+			members.updateMember( { query: { username: data.username, email: data.email },
+									update: {isAdmin: (data.permissions === "administrator") ? true : false }
+								  }, function( error, result ) {
+										if( error ) {
+											console.error( error );
+											request.auth.session.set('error', error); //TODO don't pass raw errors to user
+											return reply( 'Error updating member');
+										}
+										else {
+											// update credentials if current user has had permissions changed
+											var creds = request.auth.credentials;
+											if( creds.username === data.username ) {
+												request.auth.session.set('isAdmin', (data.permissions === "administrator") ? true : false);
+												// request.auth.session.set('permissions', data.permissions);
+												return reply('Updated administrator. ');
+											}
+											else {
+												return reply('Updated user: ' + data.username );
+											}
+										}
+								  });
 		}
 	}
 };

@@ -10,9 +10,11 @@ var ObjectId 	= mongoose.Schema.Types.ObjectId;
 var memberSchema = new Schema({
 	username: 	{type: String, required: true},
 	email: 		{type: String, required: true},
-//	firstName: 	{type: String, required: true},
-//	lastName: 	{type: String, required: true},
+	firstName: 	{type: String, required: true},
+	lastName: 	{type: String, required: true},
 	isApproved: {type: Boolean, required: true},
+	isAdmin:    {type: Boolean, required: true},
+	hasAccount: {type: Boolean, required: true},
 	IDImage: 	[ObjectId]
 });
 
