@@ -51,12 +51,10 @@ server.register([Bell, Cookie], function (err) {
 	console.log( 'CID: ' + config.facebook.cKey);
 	console.log( 'CSecret: ' + config.facebook.cSecret);
     
-
 	server.auth.default('session');
 	server.route(routes);
    
 });
-
 
 
 // GOOD error reporting
