@@ -15,8 +15,8 @@ function loadImg(input) {
 $('#submitID').on('click', function() {
 	var usernameTag = $(".username");
 	console.log(usernameTag);
-	console.log(usernameTag["0"].innerHTML);
-	var username = usernameTag["0"].innerHTML;
+	console.log(usernameTag.text());
+	var username = usernameTag.text();
 	var imageId = $("input[name='uploadedIDname']");
 	console.log(imageId["0"].value);
 	// console.log("imageId:", imageId);
