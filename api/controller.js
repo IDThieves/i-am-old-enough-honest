@@ -168,18 +168,28 @@ module.exports = {
 
 
 	// api routes:
-	// api routes:
 	imageUpload  : {
 		handler: function( request, reply ) {
+			var data = request.payload.data;
+			console.log(request.payload);
+			members.updateMember({query: {username: data.username, IDImage: data.IDImage}}, function(error, result) {
+				if (error) {
+					console.log(error);
+					request.auth.session.set('error', error);
+					return reply('Error uploading image');
+				} else {
+					var creds = request.auth.credentials;
+					if (creds.username === data.username) {
+						request.auth.session.set(data.IDImage === creds.IDImage);
+						return reply("Image upload successful.");
+						//should then either be redirected to the landing page or show them a banner that the upload has been successful.
+					}
+				}
+			});
+
 			return reply( 'Upload Image Request received.');
 		}
 
-	},
-
-	upload : {
-		handler: function( request, reply) {
-			return reply.view('upload');
-		}
 	},
 
 	memberUpdate  : {
