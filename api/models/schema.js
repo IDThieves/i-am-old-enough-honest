@@ -15,7 +15,7 @@ var memberSchema = new Schema({
 	isApproved: {type: Boolean, required: true},
 	isAdmin:    {type: Boolean, required: true},
 	hasAccount: {type: Boolean, required: true},
-	IDImage: 	[ObjectId]
+	IDImage: 	{type: String}
 });
 
 //userSchema.plugin(crate, {

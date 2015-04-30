@@ -19,10 +19,9 @@ $('#submitID').on('click', function() {
 	console.log(usernameTag);
 	console.log(usernameTag["0"].innerHTML);
 	var username = usernameTag["0"].innerHTML;
-	var IDImage = $("input[type='file'][name='uploadedIDname']");
+	var image = $("input[type='file'][name='uploadedIDname']");
+	var IDImage = image["0"].value;
 	console.log(IDImage);
-	console.log(IDImage["0"].value);
-	// console.log("imageId:", imageId);
 
 	var payload = {
 		username: username,
