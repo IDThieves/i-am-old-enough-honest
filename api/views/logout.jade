@@ -1,0 +1,13 @@
+extend ./layouts/default.jade
+
+block content
+	body.bkimg
+		col-md-3
+			.container
+				.landingPage
+					h4 You have successfully logged out
+					br
+					input.btn#login(type='submit', value='Please Log in with Facebook here')
+
+append footer
+	script(src="/scripts/login.js")

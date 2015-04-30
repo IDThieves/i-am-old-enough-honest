@@ -12,6 +12,11 @@
 
 /*-------Navbar-----*/
 
+.navbar.navbar-default {
+	background-color: transparent;
+	border: none;
+}
+
 /*------Upload------*/
 
 .uploadPage {
