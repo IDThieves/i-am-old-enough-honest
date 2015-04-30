@@ -70,7 +70,7 @@ module.exports = {
 		 handler: function (request, reply) {
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
-				
+
 				// request.auth.session.clear();
 				// request.auth.session.set(profile);
 				console.dir("fb:", fb);
@@ -120,11 +120,11 @@ module.exports = {
 				var fb = request.auth.credentials;
 				console.log(fb);
 				members.findMemberByEmail(fb.email, function(err, member){
-					
+
 					if (err) {
 						console.log(err);
-						
-					} 
+
+					}
 					else if (member) {
 						if( member.isAdmin ) {
 							members.findAll( function( error, membersList ) {
@@ -135,15 +135,15 @@ module.exports = {
 							});
 						}
 						else {
-							return reply.view('profile', {member: member});
+							return reply.view('profile', {members: member});
 						}
-					} 
+					}
 					else {
 						console.log("end");
 					}
-					
+
 				});
-			} 
+			}
 			else {
 				console.log( 'You are not authorised');
 				return reply.redirect( '/login');
