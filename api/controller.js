@@ -169,6 +169,11 @@ module.exports = {
 
 	// api routes:
 	imageUpload  : {
+		payload: {
+			maxBytes: 209715200,
+			output: 'file',
+			parse: true
+		},
 		handler: function( request, reply ) {
 			var data = request.payload.data;
 //			console.log(request.payload);
