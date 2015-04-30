@@ -1,17 +1,21 @@
 doctype html
 html
-	head
-		meta(charset='utf-8')
-		meta(name='viewport', content='width=device-width, initial-scale=1')
-		meta(http-equiv='X-UA-Compatible' content='IE=edge')
-		link(href='/assets/css/bootstrap.min.css', rel='stylesheet' type='text/css')
-		link(href='/assets/css/main.css', rel='stylesheet' type='text/css')
+	block head
+		head
+			meta(charset='utf-8')
+			meta(name='viewport', content='width=device-width, initial-scale=1')
+			meta(http-equiv='X-UA-Compatible' content='IE=edge')
+			link(href='/assets/css/bootstrap.min.css', rel='stylesheet' type='text/css')
+			link(href='/assets/css/main.css', rel='stylesheet' type='text/css')
 
-		title Kiwi
+			title Kiwi
 
-	body
-		include ../includes/navbar.jade
-		block content
-		script(src='/lib/jquery-2.1.3.min.js')
-		script(src='/lib/bootstrap.min.js')
-		script(src='/assets/js/main.js')
+		body
+			include ../includes/navbar.jade
+			
+			block content
+			
+			block footer
+				script(src='/lib/jquery-2.1.3.min.js')
+				script(src='/lib/bootstrap.min.js')
+				script(src='/assets/js/main.js')
