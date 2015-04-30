@@ -9,5 +9,6 @@ module.exports = [
 	{path: '/loggedout',				method: 'GET',		config: controller.loggedoutView},
 //	{path: '/upload',					method: 'GET',		config: controller.upload},
 	{path: '/api/image',			    method: 'POST',		config: controller.imageUpload},
-	{path: '/api/memberUpdate',		    method: 'POST',		config: controller.memberUpdate}
+	{path: '/api/update/rights',    	method: 'POST',		config: controller.updateRights},
+	{path: '/api/update/approval',    	method: 'POST',		config: controller.updateIDApproval}
 ];

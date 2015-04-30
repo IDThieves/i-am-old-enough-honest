@@ -1,0 +1,18 @@
+#idModal.modal(tabindex='-1', role='dialog', aria-labelledby='idModalLabel', aria-hidden='true')
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type='button', data-dismiss='modal', aria-label='Close')
+						span(aria-hidden='true') &times;
+					h4#idModalTitle.modal-title Student Photo ID
+				.modal-body
+					.container-fluid
+						.row
+							.col-xs-9
+								.photo
+									img(src='./img/idthief.png', id='preview')
+							.col-xs-2
+								.approvalState
+									button.btn.btn-default.approveMe(type='button') Approve
+				.modal-footer
+					button.btn.btn-default(type='button', data-dismiss='modal') Close
