@@ -76,3 +76,26 @@ exports.updateMember= function( params, callback ) {
 		return callback(null, result);
 	});
 };
+
+exports.uploadImage = function(params, imagePath, callback) {
+	Member.findOneAndUpdate(params.query, params.update, function(err, result) {
+		if (err) {
+			return callback(err);
+		} else {
+			Member.attach('IDImage', {path: imagePath}, function(AttachError){
+				if (AttachError){
+					console.log(AttachError);
+					return callback(AttachError);
+				} else {
+					Member.save(function(saveError){
+						if (saveError) {
+							return callback(saveError); 
+						} else {
+							return callback(null, Member);
+						}
+					});
+				}
+			});
+		}
+	});
+};
