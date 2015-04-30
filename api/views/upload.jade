@@ -3,22 +3,23 @@ mixins /mixins.jade
 
 block content
 	.row
-		.col-md-12
-			.uploadPage(style="align:center")
-				label#uploadID(action="/upload", method="POST", enctype="multipart/form-data")
-					span#uptext Please upload your ID (Drivers License and Passports only)
+		.col-md-12.col-md-offset-4
+			.container
+				.uploadPage(style="align:center")
+					h1.username #{member.username}
+					label#uploadID(action="/upload", method="POST", enctype="multipart/form-data")
+						span#uptext Please upload your ID (Drivers License OR Passports only)
+						br
+						br
+						input(name="uploadedIDname", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png", capture="camera")
 					br
+					.row
+						.col-md-12
+							img#previewID(src="/img/idpreview.png" height="270" width="450")
 					br
-					input(name="uploadedID", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png")
-				br
-				.row
-					.col-md-12
-						img#previewID(src="/img/idthief.png" height="400" width="400")
-				br
-				br
-				.row
-					.col-xs-12.col-sm-4
-						input#submit.form-control(type="submit", value="Submit", class='no-border')
+					.row
+						.col-xs-12.col-sm-6
+							input#submitID.form-control(type="submit", value="Submit", class='no-border')
 
-
+append footer
 	script(src="/scripts/upload.js")

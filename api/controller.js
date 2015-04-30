@@ -135,6 +135,10 @@ module.exports = {
 							});
 						}
 
+						else if (!member) {
+							return reply.view('landingPage');
+						}
+
 						else if (member && !member.isApproved) {
 							return reply.view('upload', {member: member});
 						}
@@ -156,7 +160,7 @@ module.exports = {
 			}
 			else {
 				console.log( 'You are not authorised');
-				return reply.redirect( '/login');
+				return reply.view( 'landingPage');
 				//return reply('You are not an authorised user.');
 			}
 		}
@@ -164,19 +168,37 @@ module.exports = {
 
 
 	// api routes:
-	// api routes:
 	imageUpload  : {
+		payload: {
+			maxBytes: 209715200,
+			output: 'file',
+			parse: true
+		},
 		handler: function( request, reply ) {
+			var data = request.payload.data;
+			members.updateMember({query: {username: data.username}, 
+								  update: {IDImage: data.IDImage}
+			}, function(error, result) {
+				if (error) {
+					console.log(error);
+					request.auth.session.set('error', error);
+					return reply('Error uploading image');
+				} else {
+					var creds = request.auth.credentials;
+					if (creds.username === data.username) {
+						request.auth.session.set('IDImage', data.IDImage);
+						console.log("creds.IDImage:", creds.IDImage);
+						return reply("Image upload successful.");
+						//should then either be redirected to the landing page or show them a banner that the upload has been successful.
+					}
+				}
+			});
+
 			return reply( 'Upload Image Request received.');
 		}
 
 	},
 
-	upload : {
-		handler: function( request, reply) {
-			return reply.view('upload');
-		}
-	},
 	updateIDApproval: {
 		handler: function( request, reply ) {
 			var data = request.payload.data;
