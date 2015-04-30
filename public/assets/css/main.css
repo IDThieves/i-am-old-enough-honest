@@ -1,5 +1,15 @@
 /*-------General--------*/
 
+.bkimg {
+	 background: url(/../img/kiwi-background.png) no-repeat center center fixed; 
+	 background-size: auto;
+}
+
+#login {
+	background-color: #396bbc;
+	color: #fff;
+}
+
 /*-------Navbar-----*/
 
 /*------Upload------*/
