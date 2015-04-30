@@ -139,8 +139,12 @@ module.exports = {
 							return reply.view('upload', {member: member});
 						}
 
+						else if (member && member.isApproved) {
+
+							return reply.view('profile', {member: member});
+						}
 						else {
-							return reply.view('profile', {members: member});
+							return reply.view('landingPage');
 						}
 
 					}
