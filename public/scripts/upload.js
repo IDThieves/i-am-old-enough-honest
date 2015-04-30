@@ -5,8 +5,8 @@ function loadImg(input) {
 	  reader.onload = function(e){
 		$('#previewID')
 		  .attr('src', e.target.result)
-		  .width(400)
-		  .height(400);
+		  .width(450)
+		  .height(270);
 	  };
 		reader.readAsDataURL(input.files[0]);
 	}
