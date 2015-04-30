@@ -164,18 +164,14 @@ module.exports = {
 
 
 	// api routes:
-	// api routes:
 	imageUpload  : {
 		handler: function( request, reply ) {
+			var IDimage = request.payload;
+			console.log(request.payload);
+			
 			return reply( 'Upload Image Request received.');
 		}
 
-	},
-
-	upload : {
-		handler: function( request, reply) {
-			return reply.view('upload');
-		}
 	},
 
 	memberUpdate  : {
