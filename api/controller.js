@@ -136,7 +136,7 @@ module.exports = {
 						}
 
 						else if (!member) {
-							return reply.view('landingPage', {member: member});
+							return reply.view('landingPage');
 						}
 
 						else if (member && !member.isApproved) {
@@ -160,7 +160,7 @@ module.exports = {
 			}
 			else {
 				console.log( 'You are not authorised');
-				return reply.redirect( '/login');
+				return reply.view( 'landingPage');
 				//return reply('You are not an authorised user.');
 			}
 		}
@@ -171,8 +171,10 @@ module.exports = {
 	imageUpload  : {
 		handler: function( request, reply ) {
 			var data = request.payload.data;
-			console.log(request.payload);
-			members.updateMember({query: {username: data.username, IDImage: data.IDImage}}, function(error, result) {
+//			console.log(request.payload);
+			members.updateMember({query: {username: data.username}, 
+								  update: {IDImage: data.IDImage}
+			}, function(error, result) {
 				if (error) {
 					console.log(error);
 					request.auth.session.set('error', error);
@@ -180,7 +182,8 @@ module.exports = {
 				} else {
 					var creds = request.auth.credentials;
 					if (creds.username === data.username) {
-						request.auth.session.set(data.IDImage === creds.IDImage);
+						request.auth.session.set('IDImage', data.IDImage);
+						console.log("creds.IDImage:", creds.IDImage);
 						return reply("Image upload successful.");
 						//should then either be redirected to the landing page or show them a banner that the upload has been successful.
 					}
