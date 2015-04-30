@@ -134,9 +134,15 @@ module.exports = {
 								return reply.view('administratorView', {members: membersList});
 							});
 						}
+
+						else if (member && !member.isApproved) {
+							return reply.view('upload', {member: member});
+						}
+
 						else {
 							return reply.view('profile', {members: member});
 						}
+
 					}
 					else {
 						console.log("end");
