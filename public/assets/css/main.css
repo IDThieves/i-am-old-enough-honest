@@ -9,4 +9,9 @@
     float:none;
 }
 
+#submitID {
+	display: block;
+	margin: auto;
+}
+
 /*--------footer---------*/

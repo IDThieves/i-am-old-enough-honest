@@ -135,6 +135,10 @@ module.exports = {
 							});
 						}
 
+						else if (!member) {
+							return reply.view('landingPage', {member: member});
+						}
+
 						else if (member && !member.isApproved) {
 							return reply.view('upload', {member: member});
 						}
@@ -166,9 +170,23 @@ module.exports = {
 	// api routes:
 	imageUpload  : {
 		handler: function( request, reply ) {
-			var IDimage = request.payload;
+			var data = request.payload.data;
 			console.log(request.payload);
-			
+			members.updateMember({query: {username: data.username, IDImage: data.IDImage}}, function(error, result) {
+				if (error) {
+					console.log(error);
+					request.auth.session.set('error', error);
+					return reply('Error uploading image');
+				} else {
+					var creds = request.auth.credentials;
+					if (creds.username === data.username) {
+						request.auth.session.set(data.IDImage === creds.IDImage);
+						return reply("Image upload successful.");
+						//should then either be redirected to the landing page or show them a banner that the upload has been successful.
+					}
+				}
+			});
+
 			return reply( 'Upload Image Request received.');
 		}
 
