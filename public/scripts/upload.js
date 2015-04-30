@@ -1,3 +1,4 @@
+//to preview the image when uploading
 function loadImg(input) {
 	if (input.files && input.files[0]) {
 	  var reader = new FileReader();
@@ -12,6 +13,7 @@ function loadImg(input) {
 	}
 }
 
+//sending an AJAX to our API
 $('#submitID').on('click', function() {
 	var usernameTag = $(".username");
 	console.log(usernameTag);
@@ -23,8 +25,10 @@ $('#submitID').on('click', function() {
 
 	var payload = {
 		username: username,
-
+		IDImage: IDImage
 	};
 
-	$.post();
+	$.post("/api/image", {data: payload}, function(result){
+		console.log("result:",result);
+	});
 });

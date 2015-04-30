@@ -1,5 +1,9 @@
 extends ./layouts/default.jade
 
 append content
-	h1 #{member.email}
+	.container
+		.row
+			.col-md-12
+				h1 #{member.username}
+				img(src=member.IDImage)
 
