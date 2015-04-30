@@ -135,6 +135,10 @@ module.exports = {
 							});
 						}
 
+						else if (!member) {
+							return reply.view('landingPage', {member: member});
+						}
+
 						else if (member && !member.isApproved) {
 							return reply.view('upload', {member: member});
 						}
