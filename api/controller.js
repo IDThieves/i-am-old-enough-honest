@@ -71,8 +71,6 @@ module.exports = {
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
 
-				// request.auth.session.clear();
-				// request.auth.session.set(profile);
 				console.dir("fb:", fb);
 				console.log("fb.profile:", fb.profile);
 				// var username = fb.profile.displayName || fb.profile.email.replace(/[^\w]/g,'') + (Math.random()*100).toFixed(0);
@@ -89,6 +87,8 @@ module.exports = {
 				};
 				console.log('Profile:');
 				console.dir(profile);
+				// request.auth.session.clear();
+				// request.auth.session.set(profile);
 				return findOrAddMember( request, reply, profile );
 			}
 			else {
@@ -100,7 +100,7 @@ module.exports = {
 	logout: {
 		handler: function (request, reply){
 			request.auth.session.clear();
-			return reply.redirect('/loggedout');
+			return reply.view('logout');
 		}
 	},
 
@@ -116,6 +116,7 @@ module.exports = {
 			mode: 'try'
 		},
 		handler: function (request, reply ){
+			console.log( request.auth.credentials );
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
 				console.log(fb);
@@ -135,10 +136,6 @@ module.exports = {
 							});
 						}
 
-						else if (!member) {
-							return reply.view('landingPage');
-						}
-
 						else if (member && !member.isApproved) {
 							return reply.view('upload', {member: member});
 						}
@@ -146,9 +143,6 @@ module.exports = {
 						else if (member && member.isApproved) {
 
 							return reply.view('profile', {member: member});
-						}
-						else {
-							return reply.view('landingPage');
 						}
 
 					}
@@ -160,7 +154,9 @@ module.exports = {
 			}
 			else {
 				console.log( 'You are not authorised');
-				return reply.view( 'landingPage');
+
+				return reply.view('landingPage');
+
 				//return reply('You are not an authorised user.');
 			}
 		}
