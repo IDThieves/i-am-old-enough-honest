@@ -21,7 +21,6 @@ $('#submitID').on('click', function() {
 	var username = usernameTag.text();
 	var image = $("input[name='uploadedIDname']");
 	var IDImage = image.val();
-	// console.log("imageId:", imageId);
 
 	var payload = {
 		username: username,
