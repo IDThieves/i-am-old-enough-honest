@@ -40,11 +40,14 @@
 
 .whiteDiv {
 	background-color: white;
-	width: 100%;
 	height: 480px;
 	border-radius: 8px;
 	padding: 20px;
 	
+}
+
+.form-control {
+	display: block;
 }
 
 /*--------footer---------*/
