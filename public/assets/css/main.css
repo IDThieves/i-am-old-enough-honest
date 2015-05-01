@@ -2,7 +2,7 @@
 
 .bkimg {
 	 background: url(/../img/kiwi-background2.png) no-repeat center fixed; 
-	background-size: cover;
+	 background-size: cover;
 }
 
 
@@ -24,8 +24,8 @@
 /*------Upload------*/
 
 .london {
-	background: url(/../img/london.png) no-repeat center fixed; 
-	background-size: cover;
+	background: url(/../img/london.png) no-repeat center center fixed; 
+	background: cover;
 }
 
 .uploadPage {
@@ -36,6 +36,13 @@
 #submitID {
 	display: block;
 	margin: auto;
+}
+
+.whiteDiv {
+	background-color: white;
+	width: 40%;
+	height: 500px;
+	border-radius: 8px;
 }
 
 /*--------footer---------*/
