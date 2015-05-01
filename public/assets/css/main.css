@@ -40,9 +40,18 @@
 
 .whiteDiv {
 	background-color: white;
-	width: 40%;
-	height: 500px;
+	width: 100%;
+	height: 480px;
 	border-radius: 8px;
+	padding: 20px;
+	
 }
 
 /*--------footer---------*/
+
+
+/*--------profile---------*/
+
+.username {
+	margin: 8px;
+}

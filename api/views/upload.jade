@@ -5,24 +5,23 @@ block content
 	body.london
 		.container
 			.row
-				.whiteDiv
-					.col-xs-12
-						#uploadText
-							.uploadPage(style="align:center")
-								h1.username #{member.username}
-								label#uploadID(action="/upload", method="POST", enctype="multipart/form-data")
-									span#uptext Please upload your ID (Drivers License OR Passports only)
-									br
-									br
-									input(name="uploadedIDname", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png", capture="camera")
+				.whiteDiv.col-md-4.col-sm-3.col-xs-2
+					#uploadText
+						.uploadPage(style="align:center")
+							h1.username #{member.username}
+							label#uploadID(action="/upload", method="POST", enctype="multipart/form-data")
+								span#uptext Please upload your ID (Drivers License OR Passports only)
 								br
-								.row
-									.col-md-12
-										img#previewID(src="/img/idpreview.png" height="260" width="420")
 								br
-								.row
-									.col-xs-12.col-sm-5
-										input#submitID.form-control(type="submit", value="Submit", class='no-border')
+								input(name="uploadedIDname", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png", capture="camera")
+							br
+							.row
+								.col-md-12
+									img#previewID(src="/img/idpreview.png" height="260" width="420")
+							br
+							.row
+								.col-xs-12.col-sm-5
+									input#submitID.form-control(type="submit", value="Submit", class='no-border')
 
 
 append footer
