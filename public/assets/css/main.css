@@ -19,6 +19,11 @@
 
 /*------Upload------*/
 
+.london {
+	background: url(/../img/london.png) no-repeat center center fixed; 
+	background-size: auto;
+}
+
 .uploadPage {
     display:block;
     float:none;
