@@ -165,13 +165,14 @@ module.exports = {
 
 	// api routes:
 	imageUpload  : {
-		payload: {
-			maxBytes: 209715200,
-			output: 'file',
-			parse: true
-		},
+		// payload: {
+		// 	maxBytes: 209715200,
+		// 	output: 'file',
+		// 	parse: true
+		// },
 		handler: function( request, reply ) {
 			var data = request.payload.data;
+			console.dir( request.payload );
 			console.log("data:", data);
 			members.uploadImage({query: {username: data.username}, 
 								  update: {IDImage: data.IDImage}
