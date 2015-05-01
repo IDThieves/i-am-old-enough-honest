@@ -176,7 +176,8 @@ module.exports = {
 		},
 		handler: function( request, reply ) {
 			var data = request.payload.data;
-			members.updateMember({query: {username: data.username}, 
+			console.log("data:", data);
+			members.uploadImage({query: {username: data.username}, 
 								  update: {IDImage: data.IDImage}
 			}, function(error, result) {
 				if (error) {
@@ -185,11 +186,12 @@ module.exports = {
 					return reply('Error uploading image');
 				} else {
 					var creds = request.auth.credentials;
+					var profileImagePath = null;
 					if (creds.username === data.username) {
-						request.auth.session.set('IDImage', data.IDImage);
-						console.log("creds.IDImage:", creds.IDImage);
+						profileImagePath = data.IDImage.path;
+						request.auth.session.set('IDImage', data.IDImage.path);
 						return reply("Image upload successful.");
-						//should then either be redirected to the landing page or show them a banner that the upload has been successful.
+						//******should then either be redirected to the landing page or show them a banner that the upload has been successful.
 					}
 				}
 			});
