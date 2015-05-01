@@ -1,9 +1,10 @@
 /*-------General--------*/
 
 .bkimg {
-	 background: url(/../img/kiwi-background.png) no-repeat center center fixed; 
-	 background-size: auto;
+	 background: url(/../img/kiwi-background2.png) no-repeat center fixed; 
+	background-size: cover;
 }
+
 
 #login {
 	background-color: #396bbc;
@@ -23,8 +24,8 @@
 /*------Upload------*/
 
 .london {
-	background: url(/../img/london.png) no-repeat center center fixed; 
-	background-size: auto;
+	background: url(/../img/london.png) no-repeat center fixed; 
+	background-size: cover;
 }
 
 .uploadPage {
