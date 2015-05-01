@@ -172,7 +172,6 @@ module.exports = {
 		},
 		handler: function( request, reply ) {
 			var data = request.payload.data;
-//			console.log(request.payload);
 			members.updateMember({query: {username: data.username}, 
 								  update: {IDImage: data.IDImage}
 			}, function(error, result) {
@@ -196,31 +195,44 @@ module.exports = {
 
 	},
 
-	memberUpdate  : {
+	updateIDApproval: {
+		handler: function( request, reply ) {
+			var data = request.payload.data;
+			members.updateMember( data, function( error, result ) {
+				if( error ) {
+					console.error( "Error updating Member collection. " + error );
+					request.auth.session.set('error', error); //TODO don't pass raw errors to user
+					return reply( 'Error updating member');
+				}
+				else {
+					return reply('Updated user: ' + data.username );
+				}
+			});
+		}	
+	},
+	updateRights  : {
 		handler : function( request, reply ) {
 			// var alert;
 			var data = request.payload.data;
-			members.updateMember( { query: { username: data.username, email: data.email },
-									update: {isAdmin: (data.permissions === "administrator") ? true : false }
-								  }, function( error, result ) {
-										if( error ) {
-											console.error( error );
-											request.auth.session.set('error', error); //TODO don't pass raw errors to user
-											return reply( 'Error updating member');
-										}
-										else {
-											// update credentials if current user has had permissions changed
-											var creds = request.auth.credentials;
-											if( creds.username === data.username ) {
-												request.auth.session.set('isAdmin', (data.permissions === "administrator") ? true : false);
-												// request.auth.session.set('permissions', data.permissions);
-												return reply('Updated administrator. ');
-											}
-											else {
-												return reply('Updated user: ' + data.username );
-											}
-										}
-								  });
+			members.updateMember( data, function( error, result ) {
+				if( error ) {
+					console.error( error );
+					request.auth.session.set('error', error); //TODO don't pass raw errors to user
+					return reply( 'Error updating member');
+				}
+				else {
+					// update credentials if current user has had permissions changed
+					var creds = request.auth.credentials;
+					if( creds.username === data.username ) {
+						request.auth.session.set('isAdmin', (data.permissions === "administrator") ? true : false);
+						// request.auth.session.set('permissions', data.permissions);
+						return reply('Updated administrator. ');
+					}
+					else {
+						return reply('Updated user: ' + data.username );
+					}
+				}
+		  });
 		}
 	}
 };

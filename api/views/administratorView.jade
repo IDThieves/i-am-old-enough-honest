@@ -1,12 +1,7 @@
 extends ./layouts/default.jade
-
-//- NB- The full stop on line 6 is VERY IMPORTANT
 append head
-	link(href='/assets/css/main.css', rel='stylesheet' type='text/css')
-	script(type='text/javascript').
-		//- var permissions = '#{permissions}'
-		//- var role = '#{role}'
-		//- var username = '#{username}'
+	//- link(href='/assets/css/main.css', rel='stylesheet' type='text/css')
+	script(type='text/javascript')
 	script(src='/scripts/admin.js')
 
 permTypes = ["user", "administrator"];
@@ -24,14 +19,15 @@ block content
 							th Username
 							th Email
 							th Permissions
-							th Photo ID
+							th Photo ID 
+							th Is Approved
 					tbody
 						if members
 							each member in members
 								tr
-									td(class=member.id + " username") #{member.username}
-									td.email(class=member.id + " email") #{member.email}
-									td(class=member.id + " permissions")
+									td.username(class=member.id) #{member.username}
+									td.email(class=member.id) #{member.email}
+									td.permissions(class=member.id)
 										.form-group
 											select.form-control.selectpermissions
 												if member.isAdmin
@@ -41,21 +37,10 @@ block content
 												//- each perm in permTypes
 												option user
 												option administrator
-									td.memberId 
-										a(href='#' data-toggle='modal' data-target='#idModal') PhotoID
-
-	#idModal.modal(tabindex='-1', role='dialog', aria-labelledby='idModalLabel', aria-hidden='true')
-		.modal-dialog
-			.modal-content
-				.modal-header
-					button.close(type='button', data-dismiss='modal', aria-label='Close')
-						span(aria-hidden='true') &times;
-					h4#idModalLabel.modal-title Student Photo ID
-				.modal-body
-					.container-fluid
-						.row
-							.col-xs-12
-								.photo
-								
-				.modal-footer
-					button.btn.btn-default(type='button', data-dismiss='modal') Close
+									td.memberPhotoID(class=member.id)
+										a(class="photoDataModal" href='#' data-toggle='modal' data-id=member.id data-target='#idModal') PhotoID
+									if member.isApproved
+										td.approvalStatus.isApproved(class=member.id ) Approved 
+									else
+										td.approvalStatus(class=member.id) Needs Approval
+	include ./includes/idApproveModal.jade
