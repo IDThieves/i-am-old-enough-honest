@@ -3,6 +3,7 @@ var Path 	= require('path');
 // var Joi 	= require('joi');
 var members = require('./models/members.js');
 var config 	= require('./config');
+var trash 	= require('./models/trash');
 
 /////////////
 // Helpers //
@@ -172,9 +173,10 @@ module.exports = {
 		},
 		handler: function( request, reply ) {
 			var data = request.payload.data;
+			var tempFiles = [profileImagePath];
 			console.log("data:", data);
 			members.uploadImage({query: {username: data.username}, 
-								  update: {IDImage: data.IDImage}
+								  update: {IDImage: data.recievedImage}
 			}, function(error, result) {
 				if (error) {
 					console.log(error);
@@ -184,8 +186,10 @@ module.exports = {
 					var creds = request.auth.credentials;
 					var profileImagePath = null;
 					if (creds.username === data.username) {
-						profileImagePath = data.IDImage.path;
-						request.auth.session.set('IDImage', data.IDImage.path);
+						profileImagePath = data.recievedImage.path;
+//						request.auth.session.set('IDImage', data.recievedImage.path);
+						if (profileImagePath) trash.cleanUp(tempFiles);
+						
 						return reply("Image upload successful.");
 						//******should then either be redirected to the landing page or show them a banner that the upload has been successful.
 					}

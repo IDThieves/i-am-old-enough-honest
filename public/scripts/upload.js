@@ -14,20 +14,20 @@ function loadImg(input) {
 }
 
 //sending an AJAX to our API
-$('#submitID').on('click', function() {
-	var usernameTag = $(".username");
-	console.log(usernameTag);
-	console.log(usernameTag.text());
-	var username = usernameTag.text();
-	var image = $("input[name='uploadedIDname']");
-	var IDImage = image.val();
-
-	var payload = {
-		username: username,
-		IDImage: IDImage
-	};
-
-	$.post("/api/image", {data: payload}, function(result){
-		console.log("result:",result);
-	});
-});
+//$('#submitID').on('click', function() {
+//	var usernameTag = $(".username");
+//	console.log(usernameTag);
+//	console.log(usernameTag.text());
+//	var username = usernameTag.text();
+//	var image = $("input[name='uploadedIDname']");
+//	var recievedImage = image.val();
+//
+//	var payload = {
+//		username: username,
+//		recievedImage: recievedImage
+//	};
+//
+//	$.post("/api/image", {data: payload}, function(result){
+//		console.log("result:",result);
+//	});
+//});
