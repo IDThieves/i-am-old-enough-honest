@@ -82,20 +82,32 @@ exports.uploadImage = function(params, imagePath, callback) {
 		if (err) {
 			return callback(err);
 		} else {
-			Member.attach('IDImage', {path: imagePath}, function(AttachError){
-				if (AttachError){
-					console.log(AttachError);
-					return callback(AttachError);
-				} else {
-					Member.save(function(saveError){
-						if (saveError) {
-							return callback(saveError); 
-						} else {
-							return callback(null, Member);
-						}
-					});
-				}
-			});
+			if (imagePath) {
+				result.attach('IDImage', {path: imagePath}, function(AttachError){
+					if (AttachError){
+						console.log(AttachError);
+						return callback(AttachError);
+					} else {
+						result.save(function(saveError){
+							if (saveError) {
+								return callback(saveError); 
+							} else {
+								return callback(null, result);
+							}
+						});
+					}
+				});
+			} else {
+				result.save(function(error){
+					if (error) {
+						return callback(error);
+					} else {
+						return callback(null, result);
+					}
+				});
+			}
 		}
 	});
+	
+	
 };
