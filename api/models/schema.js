@@ -27,7 +27,7 @@ var memberSchema = new Schema({
 // 		region: config.region,
 // 	}),
 // 	fields: {
-// 		recievedImage: {
+// 		receivedImage: {
 // 			processor: new ImageMagick({
 // 				// tmpDir: '/tmp', // Where transformed files are placed before storage, defaults to os.tmpdir()
 // 				// formats: ['JPEG', 'GIF', 'PNG'], // Supported formats, defaults to ['JPEG', 'GIF', 'PNG', 'TIFF']
