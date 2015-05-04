@@ -11,22 +11,24 @@
 	color: #fff;
 }
 
-
+body {
+	font-family: 'Raleway', sans-serif;
+}
 
 /*-------Navbar-----*/
 
-/*
 .navbar.navbar-default {
 	background-color: transparent;
 	border: none;
 }
-*/
 
+/*
 .navbar-default {
 	background-color: #2c2e2f;
 	border: none;
 	padding: 20px;
 }
+*/
 
 /*
 ul.nav.nav-pills.coyote a {

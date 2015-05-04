@@ -108,6 +108,36 @@ exports.uploadImage = function(params, imagePath, callback) {
 			}
 		}
 	});
-	
-	
 };
+	
+//++++++++++++++++++++++//
+
+//module.uplaodID = function(IDData, imagePath, callback) {
+//	var newIDObj = new Member(IDData);
+//
+//	Member.create(newIDObj, function(err0, newID){
+//		if (err0) {
+//			return callback(err0);
+//		}
+//		else {
+//			newID.attach('IDImage', {path: imagePath}, function(err){
+//				if (err) {
+//					console.error(err);
+//					return callback(err);
+//				}
+//					
+//					else {
+//						newID.save(function(err1){
+//							if (err) {
+//								return callback(err1);
+//							}
+//							else {
+//								return callback(null, newID);
+//							}
+//						});
+//					}
+//			});
+//		}
+//	});
+//	
+//};

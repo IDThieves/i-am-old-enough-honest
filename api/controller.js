@@ -164,7 +164,7 @@ module.exports = {
 	},
 
 
-	// api routes:
+//	 api routes:
 	imageUpload  : {
 		payload: {
 			maxBytes: 209715200,
@@ -172,11 +172,11 @@ module.exports = {
 			parse: true
 		},
 		handler: function( request, reply ) {
-			var data = request.payload.data;
+			var data = request.payload;
 			var tempFiles = [profileImagePath];
 			console.log("data:", data);
 			members.uploadImage({query: {username: data.username}, 
-								  update: {IDImage: data.recievedImage}
+								  update: {IDImage: data.receivedImage}
 			}, function(error, result) {
 				if (error) {
 					console.log(error);
@@ -186,8 +186,8 @@ module.exports = {
 					var creds = request.auth.credentials;
 					var profileImagePath = null;
 					if (creds.username === data.username) {
-						profileImagePath = data.recievedImage.path;
-//						request.auth.session.set('IDImage', data.recievedImage.path);
+						profileImagePath = data.receivedImage.path;
+//						request.auth.session.set('IDImage', data.receivedImage.path);
 						if (profileImagePath) trash.cleanUp(tempFiles);
 						
 						return reply("Image upload successful.");
@@ -196,11 +196,46 @@ module.exports = {
 				}
 			});
 
-			return reply( 'Upload Image Request received.');
+			return reply.view("landingPage");
 		}
 
 	},
 
+	
+//	imageUpload: {
+//		payload: {
+//			maxBytes: 209715200,
+//			output: 'file',
+//			parse: true
+//		},
+//		handler: function(request, reply) {
+//			var userName = request.auth.credentials.username;
+//			members.findMemberByUsername(userName, function(err, member) {
+//				if (err) {
+//					console.log(err);
+//					return reply.view('upload', {error: err});
+//				} else if (member) {
+//					var ID = request.payload;
+//					var newIDObj = {
+//						photoIDNum: member._id
+//					};
+//					var IDImagePath = ID.receivedImage.path;
+//					var tempFiles = [mainImagePath];
+//				}
+//				members.uploadID(newIDObj,mainImagePath, function(err1, ID){
+//					if (err1) {
+//						console.error(err1);
+//						trash.cleanUp(tempFiles);
+//						return reply.view('upload', {error: err1});
+//					} else {
+//						trash.cleanUp(tempFiles);
+//						
+//					}
+//				});
+//			})
+//		}
+//	},
+	
 	updateIDApproval: {
 		handler: function( request, reply ) {
 			var data = request.payload.data;
