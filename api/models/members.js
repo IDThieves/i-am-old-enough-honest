@@ -83,7 +83,7 @@ exports.uploadImage = function(params, imagePath, callback) {
 			return callback(err);
 		} else {
 			if (imagePath) {
-				result.attach('IDImage', {path: imagePath}, function(AttachError){
+				result.attach('receivedImage', {path: imagePath}, function(AttachError){
 					if (AttachError){
 						console.log(AttachError);
 						return callback(AttachError);
