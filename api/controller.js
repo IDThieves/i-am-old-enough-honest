@@ -223,7 +223,7 @@ module.exports = {
 						photoIDNum: member._id
 					};
 					console.log("ID:", ID);
-					var IDImagePath = ID.path;
+					var IDImagePath = ID.IDImage.path;
 					var tempFiles = [IDImagePath];
 				}
 				members.uploadID(newIDObj, IDImagePath, function(err1, ID){
