@@ -20,14 +20,15 @@ $('#submitID').on('click', function() {
 	console.log(usernameTag.text());
 	var username = usernameTag.text();
 	var image = $("input[name='uploadedIDname']");
-	var receivedImage = image.val();
+	var IDImage = image.val();
 
 	var payload = {
 		username: username,
-		receivedImage: receivedImage
+		IDImage: IDImage
 	};
 
 	$.post("/api/image", {data: payload}, function(result){
 		console.log("result:",result);
 	});
 });
+
