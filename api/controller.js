@@ -216,11 +216,14 @@ module.exports = {
 					return reply.view('upload', {error: err});
 				} else if (member) {
 					var ID = request.payload;
+					
+					console.log("ID bes", ID);
+					
 					var newIDObj = {
 						photoIDNum: member._id
 					};
 					console.log("ID:", ID);
-					var IDImagePath = ID.IDImage.path;
+					var IDImagePath = ID.path;
 					var tempFiles = [IDImagePath];
 				}
 				members.uploadID(newIDObj, IDImagePath, function(err1, ID){
