@@ -173,10 +173,10 @@ module.exports = {
 		},
 		handler: function( request, reply ) {
 			var data = request.payload;
-			var tempFiles = [profileImagePath];
+			var tempFiles = [IDImagePath];
 			console.log("data:", data);
 			members.uploadImage({query: {username: data.username}, 
-								  update: {IDImage: data.receivedImage}
+								  update: {receivedImage: data.receivedImage}
 			}, function(error, result) {
 				if (error) {
 					console.log(error);
@@ -184,11 +184,11 @@ module.exports = {
 					return reply('Error uploading image');
 				} else {
 					var creds = request.auth.credentials;
-					var profileImagePath = null;
+					var IDImagePath = null;
 					if (creds.username === data.username) {
-						profileImagePath = data.receivedImage.path;
+						IDImagePath = data.receivedImage.path;
 //						request.auth.session.set('IDImage', data.receivedImage.path);
-						if (profileImagePath) trash.cleanUp(tempFiles);
+						if (IDImagePath) trash.cleanUp(tempFiles);
 						
 						return reply("Image upload successful.");
 						//******should then either be redirected to the landing page or show them a banner that the upload has been successful.
