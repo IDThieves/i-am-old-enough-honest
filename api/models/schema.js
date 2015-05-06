@@ -31,8 +31,6 @@ memberSchema.plugin(crate, {
  	fields: {
  		IDImage: {
  			processor: new ImageMagick({
- 				// tmpDir: '/tmp', // Where transformed files are placed before storage, defaults to os.tmpdir()
- 				// formats: ['JPEG', 'GIF', 'PNG'], // Supported formats, defaults to ['JPEG', 'GIF', 'PNG', 'TIFF']
  				transforms: {
  					original: {
  						// keep the original file
