@@ -8,10 +8,8 @@ block content
 				.whiteDiv.col-md-6.col-sm-8.col-xs-12
 					#uploadText
 						h1.username #{member.username}
-						label#uploadID(action="/upload", method="POST", enctype="multipart/form-data")
-							span#uptext Please upload your ID (Driving License OR Passport only)
-							br
-							br
+						p#uptext Please upload your ID (Driving License OR Passport only)
+						form#uploadID(action="/api/image", method="POST", enctype="multipart/form-data")
 							input(name="uploadedIDname", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png", capture="camera")
 						br
 						.row
