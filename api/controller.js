@@ -217,8 +217,6 @@ module.exports = {
 				} else if (member) {
 					var ID = request.payload;
 					
-					console.log("ID bes", ID);
-					
 					var newIDObj = {
 						photoIDNum: member._id
 					};
