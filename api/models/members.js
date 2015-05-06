@@ -157,7 +157,7 @@ exports.addID = function(memberDocument, imagePath, callback) {
                     return callback(err1);
                 }
                 else {
-                    return callback(null, newID);
+                    return callback(null, memberDocument);
                 }
             });
         }
