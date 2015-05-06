@@ -113,32 +113,53 @@ exports.updateMember= function( params, callback ) {
 	
 //++++++++++++++++++++++//
 
-exports.uploadID = function(IDData, imagePath, callback) {
-	var newIDObj = new Member(IDData);
+//exports.uploadID = function(IDData, imagePath, callback) {
+//	var newIDObj = new Member(IDData);
+//
+//	Member.create(newIDObj, function(err0, newID){
+//		if (err0) {
+//			return callback(err0);
+//		}
+//		else {
+//			newID.attach('IDImage', {path: imagePath}, function(err){
+//				if (err) {
+//					console.error(err);
+//					return callback(err);
+//				}
+//					
+//					else {
+//						newID.save(function(err1){
+//							if (err) {
+//								return callback(err1);
+//							}
+//							else {
+//								return callback(null, newID);
+//							}
+//						});
+//					}
+//			});
+//		}
+//	});
+//	
+//};
 
-	Member.create(newIDObj, function(err0, newID){
-		if (err0) {
-			return callback(err0);
-		}
-		else {
-			newID.attach('IDImage', {path: imagePath}, function(err){
-				if (err) {
-					console.error(err);
-					return callback(err);
-				}
-					
-					else {
-						newID.save(function(err1){
-							if (err) {
-								return callback(err1);
-							}
-							else {
-								return callback(null, newID);
-							}
-						});
-					}
-			});
-		}
-	});
-	
+
+
+exports.addID = function(memberDocument, imagePath, callback) {
+    memberDocument.attach('IDImage', {path: imagePath}, function(err){
+        if (err) {
+            console.error(err);
+            return callback(err);
+        }
+        else {
+            memberDocument.save(function(err1){
+                if (err1) {   // <---NB, typo here in your code
+                    return callback(err1);
+                }
+                else {
+                    return callback(null, newID);
+                }
+            });
+        }
+    });
 };
