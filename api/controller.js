@@ -251,15 +251,14 @@ imageUpload: {
 		},
 	handler: function(reply, request) {
 		console.log("hi");
-        console.log("request.auth:", request.auth);
-		var userName = request.auth.credentials.username;
+		var userName = request.payload.data.username;
 		console.log("request.auth:", request.auth);
 		members.findMemberByUsername(userName, function(err, member){
 			if (err) {
 				console.log(err);
 				return reply.view('upload', {error: err});
 			} else if (member) {
-				var ID = request.payload;
+                var ID = request.payload.data;
 				console.log("ID:", ID);
 				var IDImagePath = ID.IDImage.path;
 				members.addID(member, IDImagePath, function(err1){
