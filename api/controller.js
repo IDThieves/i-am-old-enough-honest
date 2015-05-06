@@ -202,51 +202,77 @@ module.exports = {
 //	},
 
 	
-	imageUpload: {
-		payload: {
+//	imageUpload: {
+//		payload: {
+//			maxBytes: 209715200,
+//			output: 'file',
+//			parse: true
+//		},
+//		handler: function(request, reply) {
+//			var userName = request.auth.credentials.username;
+//			members.findMemberByUsername(userName, function(err, member) {
+//				if (err) {
+//					console.log(err);
+//					return reply.view('upload', {error: err});
+//				} else if (member) {
+//					var ID = request.payload;
+//					console.log("ID:", ID);
+//					var IDImagePath = ID.IDImage.path;
+//                    members.addID(memberDocument, imagePath, function(err1, ID) {
+//    
+//                    });
+//				}
+//					console.log("IDImagePath:", IDImagePath);
+//					if (err1) {
+//						console.error(err1);
+//						return reply.view('upload', {error: err1});
+//					} else {
+//						member.save(function(err2){
+//							if (err2) {
+//								console.log(error2);
+//								return reply.view('upload', {error: err2});
+//							} else {
+//								return reply.view('landingPage', {success: 'ID successfully submited'});
+//							}
+//						});
+//						
+//					}
+//				});
+//			})
+//		}
+//	},
+    
+    
+imageUpload: {
+	payload: {
 			maxBytes: 209715200,
 			output: 'file',
 			parse: true
 		},
-		handler: function(request, reply) {
-			var userName = request.auth.credentials.username;
-			members.findMemberByUsername(userName, function(err, member) {
-				if (err) {
-					console.log(err);
-					return reply.view('upload', {error: err});
-				} else if (member) {
-					var ID = request.payload;
-					
-					var newIDObj = {
-						photoIDNum: member._id
-					};
-					console.log("ID:", ID);
-					var IDImagePath = ID.IDImage.path;
-					var tempFiles = [IDImagePath];
-				}
-				members.uploadID(newIDObj, IDImagePath, function(err1, ID){
-					console.log("IDImagePath:", IDImagePath);
-					if (err1) {
-						console.error(err1);
-//						trash.cleanUp(tempFiles);
+	handler: function(reply, request) {
+		console.log("hi");
+		var userName = request.payload.data.username;
+		console.log("request.auth:", request.auth);
+		members.findMemberByUsername(userName, function(err, member){
+			if (err) {
+				console.log(err);
+				return reply.view('upload', {error: err});
+			} else if (member) {
+                var ID = request.payload.data;
+				console.log("ID:", ID);
+				var IDImagePath = ID.IDImage.path;
+				members.addID(member, IDImagePath, function(err1){
+					if (err1){
+						console.log(err1);
 						return reply.view('upload', {error: err1});
 					} else {
-//						trash.cleanUp(tempFiles);
-//						var IDNum = ID._id;
-						member.save(function(err2){
-							if (err2) {
-								console.log(error2);
-								return reply.view('upload', {error: err2});
-							} else {
-								return reply.view('landingPage', {success: 'ID successfully submited'});
-							}
-						});
-						
+						return reply.view('landingPage', {success: 'ID photo successfully submitted.'});
 					}
 				});
-			})
-		}
-	},
+			}
+		});
+	}
+},
 	
 	updateIDApproval: {
 		handler: function( request, reply ) {

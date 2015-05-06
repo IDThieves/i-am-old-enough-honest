@@ -18,44 +18,45 @@ var memberSchema = new Schema({
 	hasAccount: {type: Boolean, required: true},
 });
 
-memberSchema.plugin(crate, {
- 	storage: new S3({
- 		key: 	config.key,
- 		secret: config.secret,
- 		bucket: config.bucket,
- 		acl: 	config.acl,
- 		region: config.region,
- 	}),
- 	fields: {
- 		IDImage: {
- 			processor: new ImageMagick({
- 				transforms: {
- 					original: {
- 						// keep the original file
- 					},
- 					small: {
- 						resize: '200x200^',
- 						gravity: 'center',
- 						extent: '200x200',
- 						format: '.jpg'
- 					},
- 					medium: {
- 						resize: '300x300^',
- 						gravity: 'center',
- 						extent: '300x300',
- 						format: '.jpg'
- 					},
- 					large: {
- 						resize: '500x500^',
- 						gravity: 'center',
- 						extent: '500x500',
- 						format: '.jpg'
- 					}
- 				}
- 			})
- 		}
- 	}
-});
+
+//memberSchema.plugin(crate, {
+// 	storage: new S3({
+// 		key: 	config.key,
+// 		secret: config.secret,
+// 		bucket: config.bucket,
+// 		acl: 	config.acl,
+// 		region: config.region,
+// 	}),
+// 	fields: {
+// 		IDImage: {
+// 			processor: new ImageMagick({
+// 				transforms: {
+// 					original: {
+// 						// keep the original file
+// 					},
+// 					small: {
+// 						resize: '200x200^',
+// 						gravity: 'center',
+// 						extent: '200x200',
+// 						format: '.jpg'
+// 					},
+// 					medium: {
+// 						resize: '300x300^',
+// 						gravity: 'center',
+// 						extent: '300x300',
+// 						format: '.jpg'
+// 					},
+// 					large: {
+// 						resize: '500x500^',
+// 						gravity: 'center',
+// 						extent: '500x500',
+// 						format: '.jpg'
+// 					}
+// 				}
+// 			})
+// 		}
+// 	}
+//});
 
 var Member = mongoose.model('member', memberSchema);
 

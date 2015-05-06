@@ -30,7 +30,6 @@
     "mongoose": "^4.0.2",
     "mongoose-crate": "^1.0.10",
     "mongoose-crate-imagemagick": "^1.0.3",
-    "mongoose-crate-s3": "^1.1.1",
-    "path": "^0.11.14"
+    "mongoose-crate-s3": "^1.1.1"
   }
 }
