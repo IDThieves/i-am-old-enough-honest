@@ -121,7 +121,7 @@ exports.uploadID = function(IDData, imagePath, callback) {
 			return callback(err0);
 		}
 		else {
-			newID.attach('receivedImage', {path: imagePath}, function(err){
+			newID.attach('IDImage', {path: imagePath}, function(err){
 				if (err) {
 					console.error(err);
 					return callback(err);
