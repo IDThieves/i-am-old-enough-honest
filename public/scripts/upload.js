@@ -35,7 +35,7 @@ function loadImg(input) {
 $('#submitID').click(function(){
     var formData = new FormData($('#uploadID')[0]);
     $.ajax({
-        url: 'http://localhost/api/image',
+        url: '/api/image',
         type: 'POST',
 				xhr: function() {  // Custom XMLHttpRequest
             var myXhr = $.ajaxSettings.xhr();
@@ -46,6 +46,7 @@ $('#submitID').click(function(){
         },
 				data: formData,
         cache: false,
+				contentType: false,
         processData: false
-    });
+    }, "json");
 });
