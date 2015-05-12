@@ -36,8 +36,7 @@ exports.findMemberByEmail = function(email, callback) {
 	Member.findOne({email: email}, function(err, result){
 		if (err) {
 			return callback(err);
-		}
-		else {
+		} else {
 			return callback(null, result);
 		}
 	});
@@ -59,9 +58,9 @@ exports.addMember = function(newMember, callback) {
 	Member.create(newMemberObj, function(err, member){
 		if (err) {
 			return callback(err);
-		}
-		else
+		} else {
 			return callback(null, member);
+		}
 	});
 };
 
@@ -153,7 +152,7 @@ exports.addID = function(memberDocument, imagePath, callback) {
         }
         else {
             memberDocument.save(function(err1){
-                if (err1) {   // <---NB, typo here in your code
+                if (err1) {
                     return callback(err1);
                 }
                 else {
