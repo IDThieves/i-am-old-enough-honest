@@ -11,6 +11,7 @@ var trash 	= require('./models/trash');
 var findOrAddMember = function( request, reply, profile ) {
 	// look up in database and if not found, then add to the database as a publisher
 	members.findMemberByEmail( profile.email, function( err1, member ){
+		console.log(member)
 		if(err1) {
 			request.auth.session.clear();
 			return reply.redirect( '/loggedout' );
