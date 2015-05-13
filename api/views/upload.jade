@@ -2,23 +2,23 @@ extends ./layouts/default.jade
 mixins /mixins.jade
 
 block content
-	.row
-		.col-md-12
-	#greyback
-		.row
-			.col-md-12
-				form(action="/upload", method="POST", enctype="multipart/form-data")
-					label#uploadID
-						span#uptext Please upload your ID (Drivers License and Passports only)
-						input(name="uploadedID", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png")
-					br
-					.row
-						.col-md-3
-							img#previewID(src="/img/idthief.png" height="250" width="250")
+	body.london
+		.container
+			.row
+				.whiteDiv.col-md-6.col-sm-8.col-xs-12
+					#uploadText
+						h1.username Hi #{member.username}
+						p#uptext Please upload your ID (Driving License OR Passport only)
+						form#uploadID(action="/api/image", method="POST", enctype="multipart/form-data")
+							input(name="uploadedIDname", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png", capture="camera")
+						br
+						.row
+							.col-md-12.col-sm-12.col-xs-12
+								img.img-responsive#previewID(src="/img/idpreview.png" height="260" width="420")
+						br
+						.row
+							.col-md-12.col-sm-12.col-xs-12
+								input#submitID.form-control(type="submit", value="Submit", class='no-border')
 
-					.row
-						.col-xs-12.col-sm-4
-							input#submit.form-control(type="submit", value="Submit", class='no-border')
-
-
-		script(src="/scripts/upload.js")
+append footer
+	script(src="/scripts/upload.js")

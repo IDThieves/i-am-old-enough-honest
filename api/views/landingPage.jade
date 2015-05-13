@@ -1,0 +1,14 @@
+extend ./layouts/default.jade
+
+block content
+	body.bkimg
+		col-md-3
+			.container
+				.landingPage
+					h1 Welcome to Kiwi
+					h4 Revolutionising Identification
+					br
+					input.btn#login(type='submit', value='Please Log in with Facebook')
+
+append footer
+	script(src="/scripts/login.js")

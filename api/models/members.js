@@ -21,13 +21,22 @@ exports.search = function(params, callback) {
 	}
 };
 
+exports.findAll = function( callback ) {
+	Member.find(function( err, result ) {
+		if( err ) {
+			callback( err );
+		}
+		else {
+			return callback(null, result);
+		}
+	});
+};
 // NB if no member found, returns result of null, not error
 exports.findMemberByEmail = function(email, callback) {
 	Member.findOne({email: email}, function(err, result){
 		if (err) {
 			return callback(err);
-		}
-		else {
+		} else {
 			return callback(null, result);
 		}
 	});
@@ -49,9 +58,9 @@ exports.addMember = function(newMember, callback) {
 	Member.create(newMemberObj, function(err, member){
 		if (err) {
 			return callback(err);
-		}
-		else
+		} else {
 			return callback(null, member);
+		}
 	});
 };
 
@@ -65,4 +74,25 @@ exports.updateMember= function( params, callback ) {
 		}
 		return callback(null, result);
 	});
+};
+
+
+
+exports.addID = function(memberDocument, imagePath, callback) {
+    memberDocument.attach('IDImage', {path: imagePath}, function(err){
+        if (err) {
+            console.error(err);
+            return callback(err);
+        }
+        else {
+            memberDocument.save(function(err1){
+                if (err1) {
+                    return callback(err1);
+                }
+                else {
+                    return callback(null, memberDocument);
+                }
+            });
+        }
+    });
 };
