@@ -1,9 +1,8 @@
 var Bell 	= require('bell');
 var Path 	= require('path');
-// var Joi 	= require('joi');
 var members = require('./models/members.js');
 var config 	= require('./config');
-var trash 	= require('./models/trash');
+//var trash 	= require('./models/trash');
 
 /////////////
 // Helpers //
