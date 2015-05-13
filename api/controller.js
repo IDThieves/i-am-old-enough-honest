@@ -120,6 +120,10 @@ module.exports = {
 						else if (member && !member.isApproved) {
 							return reply.view('upload', {member: member});
 						}
+                        
+//                        else if (member && !member.isApproved && (member.IDImage !== null)) {
+//                            return reply.view('success', {member: member});
+//                        }
 
 						else if (member && member.isApproved) {
 
@@ -140,114 +144,52 @@ module.exports = {
 			}
 		}
 	},
-
-
-//	 api routes:
-//	imageUpload  : {
-//		payload: {
-//			maxBytes: 209715200,
-//			output: 'file',
-//			parse: true
-//		},
-//		handler: function( request, reply ) {
-//			var data = request.payload;
-////			var tempFiles = [IDImagePath];
-//			members.uploadImage({query: {username: data.username}}, 
-//								{update: {receivedImage: data.receivedImage}
-//			}, function(error, result) {
-//				if (error) {
-//					request.auth.session.set('error', error);
-//					return reply('Error uploading image');
-//				} else {
-//					var creds = request.auth.credentials;
-//					var IDImagePath = null;
-//					if (creds.username === data.username) {
-//						IDImagePath = data.receivedImage.path;
-////						request.auth.session.set('IDImage', data.receivedImage.path);
-////						if (IDImagePath) trash.cleanUp(tempFiles);
-//						
-//						return reply("Image upload successful.");
-//						//******should then either be redirected to the landing page or show them a banner that the upload has been successful.
-//					}
-//				}
-//			});
-//
-//			return reply.view("landingPage");
-//		}
-//
-//	},
-
-	
-//	imageUpload: {
-//		payload: {
-//			maxBytes: 209715200,
-//			output: 'file',
-//			parse: true
-//		},
-//		handler: function(request, reply) {
-//			var userName = request.auth.credentials.username;
-//			members.findMemberByUsername(userName, function(err, member) {
-//				if (err) {
-//					return reply.view('upload', {error: err});
-//				} else if (member) {
-//					var ID = request.payload;
-//					var IDImagePath = ID.IDImage.path;
-//                    members.addID(memberDocument, imagePath, function(err1, ID) {
-//    
-//                    });
-//				}
-//					if (err1) {
-//						return reply.view('upload', {error: err1});
-//					} else {
-//						member.save(function(err2){
-//							if (err2) {
-//								return reply.view('upload', {error: err2});
-//							} else {
-//								return reply.view('landingPage', {success: 'ID successfully submited'});
-//							}
-//						});
-//						
-//					}
-//				});
-//			})
-//		}
-//	},
     
+
     
-imageUpload: {
-	payload: {
-			maxBytes: 209715200,
-			output: 'file',
-			parse: true
-		},
-	handler: function(request, reply) {
-		var userName = request.auth.credentials.username;
-		members.findMemberByUsername(userName, function(err, member){
-			if (err) {
-				return reply.view('upload', {error: err});
-			} else if (member) {
-				var IDImagePath = request.payload.uploadedIDname.path;
-					console.log(IDImagePath)
-				members.addID(member, IDImagePath, function(err1){
-						console.log("add id error", err1)
-					if (err1){
-						return reply.view('upload', {error: err1, member: member});
-					} else {
-						return reply.view('landingPage', {success: 'ID photo successfully submitted.'});
-					}
-				});
-			}
-		});
-	}
-},
+    imageUpload: {
+        payload: {
+                maxBytes: 209715200,
+                output: 'file',
+                parse: true
+            },
+        handler: function(request, reply) {
+            var userName = request.auth.credentials.username;
+            members.findMemberByUsername(userName, function(err, member){
+                if (err) {
+                    return reply.view('upload', {error: err});
+                } else if (member) {
+                    var IDImagePath = request.payload.uploadedIDname.path;
+                        console.log(IDImagePath);
+                    members.addID(member, IDImagePath, function(err1){
+                            console.log("add id error", err1);
+                        if (err1){
+                            return reply.view('upload', {error: err1, member: member});
+                        } else {
+                            console.log("SUCCESSFUL.....................");
+                            return reply.redirect('/success');
+                        }
+                    });
+                }
+            });
+        }
+    },
 	
+    success: {
+		handler: function (request, reply){
+            request.auth.session.clear();
+            console.log("success handler working!!");
+			return reply.view('success');
+		}
+	},
+    
 	updateIDApproval: {
 		handler: function( request, reply ) {
 			var data = request.payload.data;
 			members.updateMember( data, function( error, result ) {
 				if( error ) {
 					request.auth.session.set('error', error); //TODO don't pass raw errors to user
-					return reply( 'Error updating member');
+					return reply('Error updating member');
 				}
 				else {
 					return reply('Updated user: ' + data.username );

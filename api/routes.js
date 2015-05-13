@@ -7,6 +7,7 @@ module.exports = [
 	{path: '/login', 					method: 'GET', 		config: controller.loginFacebook},
 	{path: '/logout', 					method: 'GET', 		config: controller.logout},
 	{path: '/loggedout',				method: 'GET',		config: controller.loggedoutView},
+	{path: '/success',				    method: 'GET',		config: controller.success},
 //	{path: '/upload',					method: 'GET',		config: controller.upload},
 	{path: '/api/image',			    method: 'POST',		config: controller.imageUpload},
 	{path: '/api/update/rights',    	method: 'POST',		config: controller.updateRights},
