@@ -10,9 +10,9 @@ $(document).ready(function() {
     
     var payload = {
     		query: { username      : usernameSib.text(),
-                 email         : emailSib.text()
+                 email         	   : emailSib.text()
         },
-    		update: { isAdmin	  : isAdmin }
+    		update: { isAdmin	   : isAdmin }
     };
     console.log( payload );
     $.post("/api/update/rights", {data: payload}, function(result){

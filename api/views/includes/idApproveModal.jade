@@ -10,9 +10,7 @@
 						.row
 							.col-xs-9
 								.photo
-								if members
-									each member in members
-										img.modalImg(src=member.IDImage.large.url, class=member.id)
+									img.modalImg(src=member.IDImage.large.url, class=member.id)
 							.col-xs-2
 								.approvalState
 									button.btn.btn-default.approveMe(type='button') Approve
