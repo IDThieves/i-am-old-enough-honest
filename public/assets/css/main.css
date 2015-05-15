@@ -38,6 +38,17 @@ ul.nav.nav-pills.coyote a {
 
 /*-------Admin-------*/
 
+.modalImg {
+	margin: 15px;
+}
+
+.modal-header {
+	background-color: #55C9A6;
+	color: white;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
 
 /*------Upload------*/
 
@@ -89,7 +100,7 @@ ul.nav.nav-pills.coyote a {
 
 .profileWhiteDiv {
 	background-color: white;
-	max-height: 540px;
+	max-height: 550px;
 	border-radius: 8px;
 	padding: 15px 20px 20px 20px;
 	margin-bottom: 50px;
@@ -98,6 +109,10 @@ ul.nav.nav-pills.coyote a {
 -moz-box-shadow: 10px 10px 3px -4px rgba(66,65,66,0.51);
 box-shadow: 10px 10px 3px -4px rgba(66,65,66,0.51);
 */
+}
+
+.profileImg {
+	padding-bottom: 15px;
 }
 
 #profileID {
