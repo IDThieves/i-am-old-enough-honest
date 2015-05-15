@@ -103,3 +103,14 @@ box-shadow: 10px 10px 3px -4px rgba(66,65,66,0.51);
 #profileID {
 	margin-bottom: 10px;
 }
+
+
+.success {
+	margin-left: 30px;
+/*
+	color: lightgrey;
+	background-color: #29b182;
+	width: 50%;
+	border-radius: 10px;
+*/
+}

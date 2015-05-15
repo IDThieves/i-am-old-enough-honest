@@ -159,13 +159,12 @@ module.exports = {
                     return reply.view('upload', {error: err});
                 } else if (member) {
                     var IDImagePath = request.payload.uploadedIDname.path;
-                        console.log(IDImagePath);
                     members.addID(member, IDImagePath, function(err1){
                             console.log("add id error", err1);
                         if (err1){
                             return reply.view('upload', {error: err1, member: member});
                         } else {
-                            console.log("SUCCESSFUL.....................");
+                            console.log("SUCCESSFUL...............");
                             return reply.redirect('/success');
                         }
                     });
@@ -176,7 +175,6 @@ module.exports = {
 	
     success: {
 		handler: function (request, reply){
-            request.auth.session.clear();
             console.log("success handler working!!");
 			return reply.view('success');
 		}
