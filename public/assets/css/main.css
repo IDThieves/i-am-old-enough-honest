@@ -38,6 +38,17 @@ ul.nav.nav-pills.coyote a {
 
 /*-------Admin-------*/
 
+.modalImg {
+	margin: 15px;
+}
+
+.modal-header {
+	background-color: #55C9A6;
+	color: white;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
 
 /*------Upload------*/
 
