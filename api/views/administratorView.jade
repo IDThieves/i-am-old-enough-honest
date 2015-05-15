@@ -1,6 +1,6 @@
 extends ./layouts/default.jade
 append head
-	//- link(href='/assets/css/main.css', rel='stylesheet' type='text/css')
+	link(href='/assets/css/admin.css', rel='stylesheet' type='text/css')
 	script(type='text/javascript')
 	script(src='/scripts/admin.js')
 
@@ -39,8 +39,8 @@ block content
 													option user
 													option administrator
 										td.memberPhotoID(class=member.id)
-											a(class="photoDataModal" href='#' data-toggle='modal' data-id=member.id data-target='#idModal') PhotoID
-											
+											a(class="photoDataModal" href='#' data-toggle='modal' data-id=member.id data-target='#idModal')
+												img.adminPhoto(src=member.IDImage.small.url)
 										if member.isApproved
 											td.approvalStatus.isApproved(class=member.id ) Approved 
 										else
