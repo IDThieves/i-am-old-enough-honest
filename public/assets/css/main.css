@@ -49,6 +49,15 @@ ul.nav.nav-pills.coyote a {
 	border-top-right-radius: 5px;
 }
 
+.adminPhoto {
+	display: block;
+	margin: auto;
+/*
+	width:200px;
+	height: auto;
+*/
+}
+
 
 /*------Upload------*/
 
