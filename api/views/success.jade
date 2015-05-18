@@ -1,0 +1,16 @@
+extend ./layouts/default.jade
+
+block content
+	body.bkimg
+		col-md-3
+			.container
+				.landingPage
+					.success
+						h3 ID photo successfully submitted
+						h3 Awaiting approval by the admin
+						br
+						h4 (Please refrain from re-uploading an ID).
+					
+
+append footer
+	script(src="/scripts/login.js")

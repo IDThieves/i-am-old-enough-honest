@@ -1,9 +1,8 @@
 var Bell 	= require('bell');
 var Path 	= require('path');
-// var Joi 	= require('joi');
 var members = require('./models/members.js');
 var config 	= require('./config');
-var trash 	= require('./models/trash');
+//var trash 	= require('./models/trash');
 
 /////////////
 // Helpers //
@@ -11,15 +10,12 @@ var trash 	= require('./models/trash');
 var findOrAddMember = function( request, reply, profile ) {
 	// look up in database and if not found, then add to the database as a publisher
 	members.findMemberByEmail( profile.email, function( err1, member ){
-		console.log('Looking up member');
+		console.log(member)
 		if(err1) {
-			console.error(err1);
 			request.auth.session.clear();
 			return reply.redirect( '/loggedout' );
 		}
 		else if (member) {
-			console.log('Found member:');
-			console.dir(member);
 			profile.isAdmin = member.isAdmin;
 			profile.hasAccount = true;
 			request.auth.session.clear();
@@ -27,19 +23,13 @@ var findOrAddMember = function( request, reply, profile ) {
 			return reply.redirect('/');
 		}
 		else {
-			console.log('Member not found, adding new Member');
-			console.dir( profile );
 			delete profile.error;
 			members.addMember(profile, function(err3, newMember){
 				if (err3) {
-					console.error(err3);
-					console.error('Failed to add new member');
 					request.auth.session.clear();
 					return reply.redirect( '/loggedout' );
 				}
 				else {
-					console.log('New member added to db');
-					console.dir(newMember);
 					profile.hasAccount = true;
 					request.auth.session.clear();
 					request.auth.session.set(profile);
@@ -72,9 +62,6 @@ module.exports = {
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
 
-				console.dir("fb:", fb);
-				console.log("fb.profile:", fb.profile);
-				// var username = fb.profile.displayName || fb.profile.email.replace(/[^\w]/g,'') + (Math.random()*100).toFixed(0);
 				var profile = {
 					username 	: fb.profile.displayName,
 					email 		: fb.profile.email,
@@ -86,10 +73,6 @@ module.exports = {
 					isAdmin		: false,
 					error 		: null,
 				};
-				console.log('Profile:');
-				console.dir(profile);
-				// request.auth.session.clear();
-				// request.auth.session.set(profile);
 				return findOrAddMember( request, reply, profile );
 			}
 			else {
@@ -117,21 +100,17 @@ module.exports = {
 			mode: 'try'
 		},
 		handler: function (request, reply ){
-			console.log( request.auth.credentials );
 			if (request.auth.isAuthenticated) {
 				var fb = request.auth.credentials;
-				console.log(fb);
 				members.findMemberByEmail(fb.email, function(err, member){
 
 					if (err) {
-						console.log(err);
 
 					}
 					else if (member) {
 						if( member.isAdmin ) {
 							members.findAll( function( error, membersList ) {
 								if( error ) {
-									console.log( "Error getting all members: " + error );
 								}
 								return reply.view('administratorView', {members: membersList});
 							});
@@ -140,6 +119,10 @@ module.exports = {
 						else if (member && !member.isApproved) {
 							return reply.view('upload', {member: member});
 						}
+                        
+//                        else if (member && !member.isApproved && (member.IDImage !== null)) {
+//                            return reply.view('success', {member: member});
+//                        }
 
 						else if (member && member.isApproved) {
 
@@ -148,13 +131,11 @@ module.exports = {
 
 					}
 					else {
-						console.log("end");
 					}
 
 				});
 			}
 			else {
-				console.log( 'You are not authorised');
 
 				return reply.view('landingPage');
 
@@ -162,126 +143,50 @@ module.exports = {
 			}
 		}
 	},
-
-
-//	 api routes:
-//	imageUpload  : {
-//		payload: {
-//			maxBytes: 209715200,
-//			output: 'file',
-//			parse: true
-//		},
-//		handler: function( request, reply ) {
-//			var data = request.payload;
-////			var tempFiles = [IDImagePath];
-//			console.log("data:", data);
-//			members.uploadImage({query: {username: data.username}}, 
-//								{update: {receivedImage: data.receivedImage}
-//			}, function(error, result) {
-//				if (error) {
-//					console.log(error);
-//					request.auth.session.set('error', error);
-//					return reply('Error uploading image');
-//				} else {
-//					var creds = request.auth.credentials;
-//					var IDImagePath = null;
-//					if (creds.username === data.username) {
-//						IDImagePath = data.receivedImage.path;
-////						request.auth.session.set('IDImage', data.receivedImage.path);
-////						if (IDImagePath) trash.cleanUp(tempFiles);
-//						
-//						return reply("Image upload successful.");
-//						//******should then either be redirected to the landing page or show them a banner that the upload has been successful.
-//					}
-//				}
-//			});
-//
-//			return reply.view("landingPage");
-//		}
-//
-//	},
-
-	
-//	imageUpload: {
-//		payload: {
-//			maxBytes: 209715200,
-//			output: 'file',
-//			parse: true
-//		},
-//		handler: function(request, reply) {
-//			var userName = request.auth.credentials.username;
-//			members.findMemberByUsername(userName, function(err, member) {
-//				if (err) {
-//					console.log(err);
-//					return reply.view('upload', {error: err});
-//				} else if (member) {
-//					var ID = request.payload;
-//					console.log("ID:", ID);
-//					var IDImagePath = ID.IDImage.path;
-//                    members.addID(memberDocument, imagePath, function(err1, ID) {
-//    
-//                    });
-//				}
-//					console.log("IDImagePath:", IDImagePath);
-//					if (err1) {
-//						console.error(err1);
-//						return reply.view('upload', {error: err1});
-//					} else {
-//						member.save(function(err2){
-//							if (err2) {
-//								console.log(error2);
-//								return reply.view('upload', {error: err2});
-//							} else {
-//								return reply.view('landingPage', {success: 'ID successfully submited'});
-//							}
-//						});
-//						
-//					}
-//				});
-//			})
-//		}
-//	},
     
+
     
-imageUpload: {
-	payload: {
-			maxBytes: 209715200,
-			output: 'file',
-			parse: true
-		},
-	handler: function(reply, request) {
-		console.log("hi");
-		var userName = request.auth.credentials.username;
-		console.log("request.auth:", request.auth);
-		members.findMemberByUsername(userName, function(err, member){
-			if (err) {
-				console.log(err);
-				return reply.view('upload', {error: err});
-			} else if (member) {
-				var ID = request.payload;
-				console.log("ID:", ID);
-				var IDImagePath = ID.IDImage.path;
-				members.addID(member, IDImagePath, function(err1){
-					if (err1){
-						console.log(err1);
-						return reply.view('upload', {error: err1});
-					} else {
-						return reply.view('landingPage', {success: 'ID photo successfully submitted.'});
-					}
-				});
-			}
-		});
-	}
-},
+    imageUpload: {
+        payload: {
+                maxBytes: 209715200,
+                output: 'file',
+                parse: true
+            },
+        handler: function(request, reply) {
+            var userName = request.auth.credentials.username;
+            members.findMemberByUsername(userName, function(err, member){
+                if (err) {
+                    return reply.view('upload', {error: err});
+                } else if (member) {
+                    var IDImagePath = request.payload.uploadedIDname.path;
+                    members.addID(member, IDImagePath, function(err1){
+                            console.log("add id error", err1);
+                        if (err1){
+                            return reply.view('upload', {error: err1, member: member});
+                        } else {
+                            console.log("SUCCESSFUL...............");
+                            return reply.redirect('/success');
+                        }
+                    });
+                }
+            });
+        }
+    },
 	
+    success: {
+		handler: function (request, reply){
+            console.log("success handler working!!");
+			return reply.view('success');
+		}
+	},
+    
 	updateIDApproval: {
 		handler: function( request, reply ) {
 			var data = request.payload.data;
 			members.updateMember( data, function( error, result ) {
 				if( error ) {
-					console.error( "Error updating Member collection. " + error );
 					request.auth.session.set('error', error); //TODO don't pass raw errors to user
-					return reply( 'Error updating member');
+					return reply('Error updating member');
 				}
 				else {
 					return reply('Updated user: ' + data.username );
@@ -295,7 +200,6 @@ imageUpload: {
 			var data = request.payload.data;
 			members.updateMember( data, function( error, result ) {
 				if( error ) {
-					console.error( error );
 					request.auth.session.set('error', error); //TODO don't pass raw errors to user
 					return reply( 'Error updating member');
 				}

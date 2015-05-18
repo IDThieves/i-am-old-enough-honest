@@ -14,33 +14,25 @@ function loadImg(input) {
 }
 
 //sending an AJAX to our API
-//$('#submitID').on('click', function() {
-//	var usernameTag = $(".username");
-//	console.log(usernameTag);
-//	console.log(usernameTag.text());
-//	var username = usernameTag.text();
-//	var image = $("input[name='uploadedIDname']");
-//	var IDImage = image.val();
-//
-//	var payload = {
-//		username: username,
-//		IDImage: IDImage
-//	};
-//
-//	$.post("/api/image", {data: payload}, function(result){
-//		console.log("result:",result);
-//	});
-//});
-
 $('#submitID').click(function(){
-		console.log("ajax");
-    var formData = new FormData($('form')[0]);
+    var formData = new FormData($('#uploadID')[0]);
     $.ajax({
-        url: 'http://localhost/api/image',
+        url: '/api/image',
         type: 'POST',
-        //Options to tell jQuery not to process data or worry about content-type.
+				xhr: function() {  // Custom XMLHttpRequest
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ 
+                console.log(myXhr.upload);
+				
+            }
+            return myXhr;
+        },
+		success: function(data) {
+			window.location.href = "/success"
+		},
+		data: formData,
         cache: false,
-        contentType: false,
+		contentType: false,
         processData: false
-    });
+    }, "json");
 });

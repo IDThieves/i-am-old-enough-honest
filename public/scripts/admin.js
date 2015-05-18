@@ -10,9 +10,9 @@ $(document).ready(function() {
     
     var payload = {
     		query: { username      : usernameSib.text(),
-                 email         : emailSib.text()
+                 email         	   : emailSib.text()
         },
-    		update: { isAdmin	  : isAdmin }
+    		update: { isAdmin	   : isAdmin }
     };
     console.log( payload );
     $.post("/api/update/rights", {data: payload}, function(result){
@@ -25,10 +25,12 @@ $(document).ready(function() {
   // this handler will dynamically set the Modal elements depending on the Member's data.
   $(document).on("click", ".photoDataModal", function () {
     var usernameSib = $(this).parent().siblings( ".username");
+	var imageSib = $(this).parent().siblings(".adminPhoto");
     var isApproved = $(this).parent().siblings( ".approvalStatus").hasClass( "isApproved");
     var approvalButton;
     // Set the Modal's Title to be the Member's UserName
     $(".modal-header #idModalTitle").text( usernameSib.text() );
+	$(".modalImg").replaceWith(imageSib.context.innerHTML);
     // Toggle the Approve/Unapprove button depending on whether the Member has been approved or not.
     if( isApproved ){
       approvalButton = "<button class='btn btn-default approveMe' type='button' > Un-Approve</button>";

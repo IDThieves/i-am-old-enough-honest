@@ -1,6 +1,6 @@
 extends ./layouts/default.jade
 append head
-	//- link(href='/assets/css/main.css', rel='stylesheet' type='text/css')
+	link(href='/assets/css/admin.css', rel='stylesheet' type='text/css')
 	script(type='text/javascript')
 	script(src='/scripts/admin.js')
 
@@ -8,41 +8,43 @@ permTypes = ["user", "administrator"];
 
 block content
 	.container.membercontainer
-		.row.col-xs-12
-			h2 Member Administration Page
-			//- p
-			//- 	The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:
-			.table-responsive
-				table.table.table-striped.table-bordered.table-hover.table-condensed
-					thead
-						tr
-							th Username
-							th Email
-							th Permissions
-							th Photo ID 
-							th Is Approved
-					tbody
-						if members
-							each member in members
-								tr
-									td.username(class=member.id) #{member.username}
-									td.email(class=member.id) #{member.email}
-									td.permissions(class=member.id)
-										.form-group
-											select.form-control.selectpermissions
-												if member.isAdmin
-													option(selected="selected") administrator
-												else 
-													option(selected="selected") user
-												//- each perm in permTypes
-												option user
-												option administrator
-									td.memberPhotoID(class=member.id)
-										a(class="photoDataModal" href='#' data-toggle='modal' data-id=member.id data-target='#idModal') PhotoID
-									if member.isApproved
-										td.approvalStatus.isApproved(class=member.id ) Approved 
-									else
-										td.approvalStatus(class=member.id) Needs Approval
+		.col-md-12.col-sm-12.col-xs-12
+			.row
+				h2 Member Administration Page
+				//- p
+				//- 	The .table-responsive class creates a responsive table which will scroll horizontally on small devices (under 768px). When viewing on anything larger than 768px wide, there is no difference:
+				.table-responsive
+					table.table.table-striped.table-bordered.table-hover.table-condensed
+						thead
+							tr
+								th Username
+								th Email
+								th Permissions
+								th Photo ID 
+								th Is Approved
+						tbody
+							if members
+								each member in members
+									tr
+										td.username(class=member.id) #{member.username}
+										td.email(class=member.id) #{member.email}
+										td.permissions(class=member.id)
+											.form-group
+												select.form-control.selectpermissions
+													if member.isAdmin
+														option(selected="selected") administrator
+													else 
+														option(selected="selected") user
+													//- each perm in permTypes
+													option user
+													option administrator
+										td.memberPhotoID(class=member.id)
+											a(class="photoDataModal" href='#' data-toggle='modal' data-id=member.id data-target='#idModal')
+												img.adminPhoto(src=member.IDImage.small.url)
+										if member.isApproved
+											td.approvalStatus.isApproved(class=member.id ) Approved 
+										else
+											td.approvalStatus(class=member.id) Needs Approval
 	include ./includes/idApproveModal.jade
 
 	script(src='/lib/jquery-2.1.3.min.js')

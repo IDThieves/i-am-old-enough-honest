@@ -1,3 +1,4 @@
+require("dns-notfound-what");
 var server 		= require('./api/server');
 
 var mongoose 	= require("mongoose");
