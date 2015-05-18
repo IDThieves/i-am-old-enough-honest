@@ -40,11 +40,10 @@ block content
 													option administrator
 										td.memberPhotoID(class=member.id)
 											a(class="photoDataModal" href='#' data-toggle='modal' data-id=member.id data-target='#idModal')
-												img.adminPhoto(src=member.IDImage.small.url)
-										if member.isApproved
-											td.approvalStatus.isApproved(class=member.id ) Approved 
-										else
-											td.approvalStatus(class=member.id) Needs Approval
+												img#smallerAdminImage.adminPhoto(src=member.IDImage.medium.url)
+										td.approvalStatus
+											button.btn.btn-default.approveMe(type='button') Approve
+
 	include ./includes/idApproveModal.jade
 
 	script(src='/lib/jquery-2.1.3.min.js')

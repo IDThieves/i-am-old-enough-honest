@@ -18,8 +18,6 @@ var memberSchema = new Schema({
 	hasAccount: {type: Boolean, required: true},
 });
 
-
-
 memberSchema.plugin(crate, {
  	storage: new S3({
  		key: 	config.key,
@@ -58,7 +56,6 @@ memberSchema.plugin(crate, {
  		}
  	}
 });
-
 
 var Member = mongoose.model('member', memberSchema);
 
