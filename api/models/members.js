@@ -86,11 +86,12 @@ exports.addID = function(memberDocument, imagePath, callback) {
         }
         else {
             memberDocument.save(function(err1){
+				console.log("error", err1);
                 if (err1) {
                     return callback(err1);
                 }
                 else {
-                    return callback(null, memberDocument);
+                    return callback(null);
                 }
             });
         }

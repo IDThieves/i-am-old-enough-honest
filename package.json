@@ -19,6 +19,7 @@
   "dependencies": {
     "bell": "^2.4.0",
     "browserify": "^9.0.8",
+    "chai": "^2.3.0",
     "dns-notfound-what": "^1.1.0",
     "good": "^6.1.1",
     "good-console": "^5.0.0",
@@ -27,6 +28,7 @@
     "hapi-auth-cookie": "^2.1.0",
     "jade": "^1.9.2",
     "joi": "^6.4.1",
+    "lab": "^5.8.1",
     "mailgun": "^0.5.0",
     "mongoose": "^4.0.2",
     "mongoose-crate": "^1.0.10",

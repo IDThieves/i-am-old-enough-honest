@@ -5,9 +5,12 @@ block content
 		col-md-3
 			.container
 				.landingPage
-					h1 ID photo successfully submitted - Awaiting approval by the admin.
-					br
-					input.btn#login(type='submit', value='Please Log in with Facebook')
+					.success
+						h3 ID photo successfully submitted
+						h3 Awaiting approval by the admin
+						br
+						h4 (Please refrain from re-uploading an ID).
+					
 
 append footer
 	script(src="/scripts/login.js")
