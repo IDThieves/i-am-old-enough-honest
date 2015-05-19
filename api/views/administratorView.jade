@@ -33,7 +33,7 @@ block content
 												select.form-control.selectpermissions
 													if member.isAdmin
 														option(selected="selected") administrator
-													else 
+													else
 														option(selected="selected") user
 													//- each perm in permTypes
 													option user
@@ -41,9 +41,17 @@ block content
 										td.memberPhotoID(class=member.id)
 											a(class="photoDataModal" href='#' data-toggle='modal' data-id=member.id data-target='#idModal')
 												img#smallerAdminImage.adminPhoto(src=member.IDImage.medium.url)
-										td.approvalStatus
-											button.btn.btn-default.approveMe(type='button') Approve
-
+										td.permissions(class=member.id)
+											.form-group
+												select.form-control.selectapproval
+													if member.isApproved
+														option(selected="selected") Un-approve
+													else
+														option(selected="selected") Approve
+													//- each perm in permTypes
+													option Approve
+													option Un-approve
+                                            
 	include ./includes/idApproveModal.jade
 
 	script(src='/lib/jquery-2.1.3.min.js')
