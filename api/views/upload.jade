@@ -10,7 +10,7 @@ block content
 						h1.username Hi #{member.username}
 						p#uptext Please upload your ID (Driving License OR Passport only)
 						form#uploadID(action="/api/image", method="POST", enctype="multipart/form-data")
-							input(name="uploadedIDname", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png", capture="camera", id="cameraInput", name="cameraInput")
+							input(name="uploadedIDname", id="uploadedID", class='uploadedID', type="file", onchange="loadImg(this)", accept="image/gif, image/jpeg, image/png", capture="camera")
 							#loading(style='display:none;')
 								img(src='/img/loading.gif', alt='Processing...')
 						br
