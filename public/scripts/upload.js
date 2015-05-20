@@ -28,7 +28,7 @@ $('#submitID').click(function(){
             return myXhr;
         },
 		success: function(data) {
-			window.location.href = "/success"
+			window.location.href = "/success";
 		},
 		data: formData,
         cache: false,

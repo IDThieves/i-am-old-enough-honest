@@ -66,13 +66,13 @@ ul.nav.nav-pills.coyote a {
 	background: cover;
 }
 
-.uploadPage {
+/*.uploadPage {
     display:block;
     float:none;
-}
+}*/
 
 #submitID {
-	display: block;
+	display: inline-block;
 	margin: auto;
 	margin-bottom: 20px;
 }
@@ -84,14 +84,16 @@ ul.nav.nav-pills.coyote a {
 	padding: 20px;
 	margin-bottom: 50px;
 }
-
-
 /*
 .form-control {
 	display: block;
 }
 */
-
+#loading {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 /*--------footer---------*/
 
