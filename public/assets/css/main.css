@@ -78,10 +78,13 @@ ul.nav.nav-pills.coyote a {
 }
 
 .whiteDiv {
+	display: inline-block;
 	background-color: white;
 	max-height: 520px;
+	width: auto;
 	border-radius: 8px;
 	padding: 20px;
+	padding-right: 30px;
 	margin-bottom: 50px;
 }
 /*
@@ -90,6 +93,7 @@ ul.nav.nav-pills.coyote a {
 }
 */
 #loading {
+	padding: 20px;
 	display: inline-block;
 	margin-left: auto;
 	margin-right: auto;
