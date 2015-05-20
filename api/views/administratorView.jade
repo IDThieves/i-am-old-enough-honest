@@ -45,12 +45,12 @@ block content
 											.form-group
 												select.form-control.selectapproval
 													if member.isApproved
-														option(selected="selected") Un-approve
+														option(selected="selected") Reject
 													else
 														option(selected="selected") Approve
 													//- each perm in permTypes
 													option Approve
-													option Un-approve
+													option Reject
                                             
 	include ./includes/idApproveModal.jade
 
