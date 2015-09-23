@@ -5,8 +5,6 @@ var ImageMagick = require('mongoose-crate-imagemagick');
 var config		= require('../config.js').s3;
 
 var Schema 		= mongoose.Schema;
-//var ObjectId 	= mongoose.Schema.Types.ObjectId;
-
 
 var memberSchema = new Schema({
 	username: 	{type: String, required: true},
