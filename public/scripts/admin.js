@@ -21,8 +21,8 @@ $(document).ready(function() {
     });
   });
 
-  // the following even is triggered when Administrator clicks a PhotoId row value
-  // this handler will dynamically set the Modal elements depending on the Member's data.
+  // The following event is triggered when Administrator clicks a PhotoId row value
+  // The handler will dynamically set the Modal elements depending on the Member's data.
   $(".selectapproval").on("change", function () {
 
 	var newApproval = $(this).find("option:selected").val();
