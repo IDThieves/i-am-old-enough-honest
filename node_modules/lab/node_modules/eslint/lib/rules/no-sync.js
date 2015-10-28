@@ -3,7 +3,7 @@
  * @author Matt DuVall<http://mattduvall.com/>
  */
 
-/*jshint node:true*/
+/* jshint node:true */
 
 "use strict";
 
@@ -26,3 +26,5 @@ module.exports = function(context) {
     };
 
 };
+
+module.exports.schema = [];

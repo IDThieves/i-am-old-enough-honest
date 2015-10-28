@@ -11,6 +11,12 @@
 
 module.exports = function(context) {
 
+    /**
+     * Get the regex expression
+     * @param {ASTNode} node node to evaluate
+     * @returns {*} Regex if found else null
+     * @private
+     */
     function getRegExp(node) {
 
         if (node.value instanceof RegExp) {
@@ -54,3 +60,5 @@ module.exports = function(context) {
     };
 
 };
+
+module.exports.schema = [];

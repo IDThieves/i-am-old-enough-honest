@@ -73,7 +73,7 @@ module.exports = {
 					isAdmin		: false,
 					error 		: null,
 				};
-				return findOrAddMember( request, reply, profile );
+				return findOrAddMember(request, reply, profile);
 			}
 			else {
 				return reply.redirect('/loggedout');
@@ -105,12 +105,12 @@ module.exports = {
 				members.findMemberByEmail(fb.email, function(err, member){
 
 					if (err) {
-
+						return err;
 					}
 					else if (member) {
 						if( member.isAdmin ) {
-							members.findAll( function( error, membersList ) {
-								if( error ) {
+							members.findAll( function(error, membersList) {
+								if(error) {
 								}
 								return reply.view('administratorView', {members: membersList});
 							});
@@ -119,10 +119,6 @@ module.exports = {
 						else if (member && !member.isApproved) {
 							return reply.view('upload', {member: member});
 						}
-                        
-//                        else if (member && !member.isApproved && (member.IDImage !== null)) {
-//                            return reply.view('success', {member: member});
-//                        }
 
 						else if (member && member.isApproved) {
 
@@ -136,15 +132,11 @@ module.exports = {
 				});
 			}
 			else {
-
 				return reply.view('landingPage');
-
-				//return reply('You are not an authorised user.');
 			}
 		}
 	},
     
-
     
     imageUpload: {
         payload: {
@@ -164,7 +156,6 @@ module.exports = {
                         if (err1){
                             return reply.view('upload', {error: err1, member: member});
                         } else {
-                            console.log("SUCCESSFUL...............");
                             return reply.redirect('/success');
                         }
                     });
@@ -175,7 +166,6 @@ module.exports = {
 	
     success: {
 		handler: function (request, reply){
-            console.log("success handler working!!");
 			return reply.view('success');
 		}
 	},

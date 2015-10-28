@@ -17,6 +17,10 @@ module.exports = function(context) {
     return {
         "VariableDeclaration": function(node) {
             node.declarations.reduce(function(memo, decl) {
+                if (decl.id.type === "ObjectPattern" || decl.id.type === "ArrayPattern") {
+                    return memo;
+                }
+
                 var lastVariableName = memo.id.name,
                     currenVariableName = decl.id.name;
 
@@ -35,3 +39,15 @@ module.exports = function(context) {
         }
     };
 };
+
+module.exports.schema = [
+    {
+        "type": "object",
+        "properties": {
+            "ignoreCase": {
+                "type": "boolean"
+            }
+        },
+        "additionalProperties": false
+    }
+];
